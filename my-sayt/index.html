@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Банкротство физических лиц онлайн — бесплатная консультация</title>
+<meta name="description" content="Помогаем физическим лицам пройти процедуру банкротства дистанционно. Бесплатная консультация. По ФЗ № 127.">
+<style>
+:root {
+  --primary: #1B3A6B;
+  --primary-dark: #122952;
+  --primary-light: #2A5494;
+  --secondary: #1B6B5A;
+  --secondary-light: #238A73;
+  --bg: #F8FAFC;
+  --bg-card: #ffffff;
+  --text: #1A2332;
+  --text-muted: #64748B;
+  --border: #E2E8F0;
+  --warning: #F59E0B;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.07);
+  --shadow-md: 0 4px 20px rgba(0,0,0,.09);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,.13);
+  --r: 14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;font-size:17px;line-height:1.65;color:var(--text);background:var(--bg);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button,input,select,textarea{font:inherit}
+
+/* ─── UTILS ─────────────────────────────────── */
+.container{width:100%;max-width:1120px;margin:0 auto;padding:0 20px}
+.section{padding:80px 0}
+.section-alt{background:#fff}
+.tag{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--secondary);background:rgba(27,107,90,.1);border-radius:6px;padding:4px 12px;margin-bottom:16px}
+.section-title{font-size:clamp(26px,4vw,38px);font-weight:700;line-height:1.22;color:var(--text);margin-bottom:16px}
+.section-sub{font-size:18px;color:var(--text-muted);max-width:640px;margin-bottom:48px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:16px;font-weight:600;border:none;border-radius:10px;padding:14px 28px;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;line-height:1}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(27,58,107,.3)}
+.btn-primary:hover{background:var(--primary-dark);box-shadow:0 8px 24px rgba(27,58,107,.4)}
+.btn-secondary{background:#fff;color:var(--primary);border:2px solid var(--primary)}
+.btn-white{background:#fff;color:var(--primary);box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.btn-white:hover{box-shadow:0 8px 24px rgba(0,0,0,.22)}
+.btn-lg{font-size:18px;padding:17px 36px;border-radius:12px}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:none}
+
+/* ─── HEADER ─────────────────────────────────── */
+.header{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--border);transition:box-shadow .3s}
+.header.scrolled{box-shadow:var(--shadow-md)}
+.header-inner{display:flex;align-items:center;gap:16px;height:68px}
+.logo{font-size:20px;font-weight:800;color:var(--primary);letter-spacing:-.02em;white-space:nowrap}
+.logo span{color:var(--secondary)}
+.nav{display:flex;gap:4px;margin-left:24px}
+.nav a{font-size:15px;font-weight:500;color:var(--text-muted);padding:6px 12px;border-radius:8px;transition:color .2s,background .2s}
+.nav a:hover{color:var(--primary);background:var(--bg)}
+.header-contacts{display:flex;align-items:center;gap:12px;margin-left:auto}
+.header-phone{font-size:15px;font-weight:600;color:var(--text);white-space:nowrap}
+.icon-btn{width:36px;height:36px;border-radius:8px;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:background .2s,color .2s}
+.icon-btn:hover{background:var(--primary);color:#fff}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;border-radius:8px;background:none;border:none}
+.burger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform .3s,opacity .3s}
+.mobile-nav{display:none;position:fixed;inset:68px 0 0 0;background:#fff;z-index:99;padding:24px 20px;flex-direction:column;gap:8px;border-top:1px solid var(--border)}
+.mobile-nav.open{display:flex}
+.mobile-nav a{font-size:18px;font-weight:500;padding:12px 16px;border-radius:10px;color:var(--text);transition:background .2s}
+.mobile-nav a:hover{background:var(--bg)}
+.mobile-nav .btn{margin-top:8px;width:100%;justify-content:center}
+
+/* ─── MOBILE STICKY BAR ──────────────────────── */
+.sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;padding:12px 16px;background:#fff;border-top:1px solid var(--border);gap:10px;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
+.sticky-bar .btn{flex:1;justify-content:center;font-size:15px;padding:13px 16px}
+@media(max-width:768px){.sticky-bar{display:flex}}
+
+/* ─── HERO ───────────────────────────────────── */
+.hero{background:linear-gradient(135deg,#0F2447 0%,#1B3A6B 45%,#1B6B5A 100%);padding:72px 0 80px;overflow:hidden;position:relative}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-grid{display:grid;grid-template-columns:1fr 440px;gap:56px;align-items:start}
+.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:24px}
+.hero-label::before{content:'';width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0}
+.hero h1{font-size:clamp(28px,4.2vw,46px);font-weight:800;line-height:1.15;color:#fff;margin-bottom:20px;letter-spacing:-.02em}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.78);line-height:1.6;margin-bottom:32px;max-width:520px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px}
+.hero-badge{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px 14px;font-size:14px;color:rgba(255,255,255,.85);font-weight:500}
+.hero-badge svg{flex-shrink:0;opacity:.8}
+
+/* ─── CALCULATOR CARD ────────────────────────── */
+.calc-card{background:#fff;border-radius:20px;padding:32px;box-shadow:var(--shadow-lg)}
+.calc-progress{display:flex;gap:6px;margin-bottom:28px}
+.calc-progress-dot{height:4px;flex:1;border-radius:4px;background:var(--border);transition:background .3s}
+.calc-progress-dot.active{background:var(--primary)}
+.calc-progress-dot.done{background:var(--secondary)}
+.calc-step{display:none}
+.calc-step.active{display:block}
+.calc-step-label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);margin-bottom:8px}
+.calc-question{font-size:19px;font-weight:700;color:var(--text);margin-bottom:20px;line-height:1.3}
+.calc-options{display:flex;flex-direction:column;gap:10px}
+.calc-option{display:flex;align-items:center;gap:12px;padding:14px 16px;border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s;font-size:15px;font-weight:500;color:var(--text);background:#fff}
+.calc-option:hover{border-color:var(--primary);background:rgba(27,58,107,.04)}
+.calc-option input{accent-color:var(--primary);width:18px;height:18px;flex-shrink:0}
+.calc-option.selected{border-color:var(--primary);background:rgba(27,58,107,.06)}
+.calc-hint{margin-top:8px;padding:10px 14px;background:rgba(27,107,90,.08);border-left:3px solid var(--secondary);border-radius:6px;font-size:13px;color:var(--secondary);font-weight:500;display:none}
+.calc-hint.show{display:block}
+.calc-nav{display:flex;gap:10px;margin-top:24px}
+.btn-back{background:var(--bg);color:var(--text-muted);border:1.5px solid var(--border)}
+.btn-back:hover{background:var(--border);transform:none}
+.calc-result{display:none;text-align:center;padding:8px 0}
+.calc-result.show{display:block}
+.calc-result-icon{width:56px;height:56px;border-radius:50%;background:rgba(27,107,90,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.calc-result-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px;line-height:1.3}
+.calc-result-sub{font-size:15px;color:var(--text-muted);margin-bottom:24px}
+.calc-form input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;color:var(--text);margin-bottom:10px;transition:border-color .2s;outline:none}
+.calc-form input:focus{border-color:var(--primary)}
+.calc-form .pd-check{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text-muted);margin-bottom:14px;cursor:pointer}
+.calc-form .pd-check input{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:var(--primary)}
+.calc-success{display:none;text-align:center;padding:16px 0}
+.calc-success.show{display:block}
+.calc-success svg{margin:0 auto 12px}
+.calc-success h3{font-size:20px;font-weight:700;margin-bottom:8px}
+.calc-success p{color:var(--text-muted);font-size:15px}
+
+/* ─── PAIN ───────────────────────────────────── */
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.pain-card{background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--border);transition:box-shadow .25s,transform .25s}
+.pain-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px)}
+.pain-icon{width:44px;height:44px;border-radius:10px;background:rgba(27,58,107,.08);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--primary)}
+.pain-card p{font-size:15px;color:var(--text);line-height:1.5;font-weight:500}
+.pain-footer{text-align:center;margin-top:40px;font-size:18px;color:var(--text-muted);font-style:italic}
+.pain-footer strong{color:var(--secondary);font-style:normal}
+
+/* ─── NOW TABLE ──────────────────────────────── */
+.now-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.now-card{border-radius:var(--r);padding:28px 24px}
+.now-card.bad{background:#FFF5F5;border:1px solid #FED7D7}
+.now-card.mid{background:#EFF6FF;border:1px solid #BFDBFE}
+.now-card.good{background:#F0FDF4;border:1px solid #BBF7D0}
+.now-card-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+.now-card.bad .now-card-label{color:#C53030}
+.now-card.mid .now-card-label{color:#1E40AF}
+.now-card.good .now-card-label{color:#166534}
+.now-card h3{font-size:16px;font-weight:700;margin-bottom:14px;color:var(--text)}
+.now-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.now-list li{font-size:14px;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;line-height:1.45}
+.now-list li::before{content:'';flex-shrink:0;margin-top:6px;width:6px;height:6px;border-radius:50%}
+.now-card.bad .now-list li::before{background:#FC8181}
+.now-card.mid .now-list li::before{background:#60A5FA}
+.now-card.good .now-list li::before{background:#4ADE80}
+.now-note{margin-top:32px;padding:16px 20px;background:rgba(27,58,107,.06);border-radius:10px;font-size:15px;color:var(--text-muted);text-align:center}
+.now-note strong{color:var(--primary)}
+
+/* ─── STEPS ──────────────────────────────────── */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+.steps-grid::before{content:'';position:absolute;top:36px;left:calc(16.666% + 20px);right:calc(16.666% + 20px);height:2px;background:linear-gradient(90deg,var(--primary),var(--secondary));z-index:0}
+.step-card{text-align:center;padding:0 24px;position:relative;z-index:1}
+.step-num{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 6px 20px rgba(27,58,107,.35);position:relative;animation:pulse-ring 3s infinite}
+@keyframes pulse-ring{0%,100%{box-shadow:0 6px 20px rgba(27,58,107,.35),0 0 0 0 rgba(27,58,107,.2)}50%{box-shadow:0 6px 20px rgba(27,58,107,.35),0 0 0 12px rgba(27,58,107,0)}}
+.step-time{display:inline-block;font-size:12px;font-weight:600;color:var(--secondary);background:rgba(27,107,90,.1);border-radius:100px;padding:3px 10px;margin-bottom:10px}
+.step-title{font-size:18px;font-weight:700;margin-bottom:10px}
+.step-desc{font-size:14px;color:var(--text-muted);line-height:1.55}
+
+/* ─── OFFERING ───────────────────────────────── */
+.offering-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.offering-card{background:#fff;border-radius:var(--r);padding:32px;border:1px solid var(--border)}
+.offering-card.primary{background:var(--primary);border-color:var(--primary)}
+.offering-card h3{font-size:20px;font-weight:700;margin-bottom:20px}
+.offering-card.primary h3{color:#fff}
+.check-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.check-list li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.4}
+.check-list li svg{flex-shrink:0;margin-top:2px}
+.offering-card.primary .check-list li{color:rgba(255,255,255,.9)}
+.offering-card.secondary .check-list li svg{color:var(--secondary)}
+
+/* ─── EXPERTISE ──────────────────────────────── */
+.expertise-layout{display:grid;grid-template-columns:340px 1fr;gap:48px;align-items:start}
+.expert-card{background:#fff;border-radius:var(--r);padding:32px;border:1px solid var(--border);text-align:center}
+.expert-avatar{width:160px;height:160px;border-radius:50%;margin:0 auto 20px;overflow:hidden;box-shadow:0 8px 32px rgba(27,58,107,.35);border:4px solid #fff;outline:3px solid var(--primary)}
+.expert-avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.expert-name{font-size:20px;font-weight:700;margin-bottom:4px}
+.expert-status{font-size:14px;color:var(--text-muted);margin-bottom:8px}
+.expert-spec{font-size:14px;color:var(--secondary);font-weight:600}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px}
+.stat-card{background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--border);text-align:center}
+.stat-number{font-size:36px;font-weight:800;color:var(--primary);line-height:1;margin-bottom:6px}
+.stat-label{font-size:14px;color:var(--text-muted)}
+.law-badge{background:rgba(27,58,107,.06);border-radius:var(--r);padding:20px 24px;border:1px solid rgba(27,58,107,.15)}
+.law-badge p{font-size:15px;color:var(--text-muted)}
+.law-badge strong{color:var(--primary)}
+.disclaimer-box{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:14px 16px;margin-top:20px;font-size:13px;color:var(--text-muted);line-height:1.5}
+
+/* ─── CASES ──────────────────────────────────── */
+.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px}
+.case-card{background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--border);position:relative;overflow:hidden;transition:box-shadow .25s,transform .25s}
+.case-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px)}
+.case-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--primary),var(--secondary))}
+.case-amount{font-size:28px;font-weight:800;color:var(--primary);margin-bottom:4px}
+.case-result{display:inline-block;font-size:12px;font-weight:700;color:#166534;background:#DCFCE7;border-radius:6px;padding:3px 10px;margin-bottom:16px}
+.case-meta{display:flex;flex-direction:column;gap:6px}
+.case-meta span{font-size:13px;color:var(--text-muted);display:flex;gap:6px;align-items:center}
+.case-meta span::before{content:'•';color:var(--secondary)}
+
+.reviews-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.review-card{background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--border);transition:box-shadow .25s}
+.review-card:hover{box-shadow:var(--shadow-sm)}
+.review-header{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.review-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0}
+.review-name{font-weight:700;font-size:15px;margin-bottom:2px}
+.review-meta{font-size:13px;color:var(--text-muted)}
+.review-stars{color:#F59E0B;font-size:14px;margin-bottom:10px}
+.review-text{font-size:14px;color:var(--text-muted);line-height:1.6;font-style:italic}
+
+/* ─── PRICE ──────────────────────────────────── */
+.price-layout{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;max-width:800px}
+.price-table{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid var(--border);font-size:15px}
+.price-row:last-child{border-bottom:none}
+.price-row.total{background:rgba(27,58,107,.04);font-weight:700;font-size:16px}
+.price-row .amount{font-weight:700;color:var(--primary);white-space:nowrap}
+.price-row.total .amount{font-size:20px}
+.installment-note{margin-top:16px;padding:16px 20px;background:#fff;border-radius:10px;border:1px solid var(--border);font-size:14px;color:var(--text-muted)}
+.installment-note strong{color:var(--text)}
+.mfc-card{background:linear-gradient(135deg,rgba(27,107,90,.08),rgba(27,107,90,.04));border:1.5px solid rgba(27,107,90,.25);border-radius:var(--r);padding:28px}
+.mfc-card h3{font-size:18px;font-weight:700;color:var(--secondary);margin-bottom:10px}
+.mfc-card p{font-size:14px;color:var(--text-muted);line-height:1.6;margin-bottom:20px}
+.price-disclaimer{margin-top:24px;font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* ─── PRICE FORM ─────────────────────────────── */
+.price-form{margin-top:28px;background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--border)}
+.price-form h3{font-size:17px;font-weight:700;margin-bottom:16px}
+
+/* ─── FAQ ────────────────────────────────────── */
+.faq-list{display:flex;flex-direction:column;gap:10px;max-width:800px;margin:0 auto}
+.faq-item{background:#fff;border-radius:var(--r);border:1px solid var(--border);overflow:hidden;transition:box-shadow .2s}
+.faq-item.open{box-shadow:var(--shadow-sm)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;font-size:16px;font-weight:600;gap:16px;user-select:none}
+.faq-q svg{flex-shrink:0;transition:transform .3s;color:var(--text-muted)}
+.faq-item.open .faq-q svg{transform:rotate(180deg);color:var(--primary)}
+.faq-item.open .faq-q{color:var(--primary)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a-inner{padding:0 24px 20px;font-size:15px;color:var(--text-muted);line-height:1.65;border-top:1px solid var(--border);padding-top:16px}
+
+/* ─── FINAL CTA ──────────────────────────────── */
+.cta-section{background:linear-gradient(135deg,#0F2447,#1B3A6B);padding:80px 0}
+.cta-section .section-title{color:#fff}
+.cta-section .section-sub{color:rgba(255,255,255,.7);margin-bottom:40px}
+.cta-layout{display:grid;grid-template-columns:1fr 440px;gap:64px;align-items:center}
+.cta-form{background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:32px}
+.cta-form input{width:100%;padding:13px 16px;border:1.5px solid rgba(255,255,255,.25);border-radius:10px;font-size:15px;color:#fff;background:rgba(255,255,255,.1);margin-bottom:12px;outline:none;transition:border-color .2s}
+.cta-form input::placeholder{color:rgba(255,255,255,.5)}
+.cta-form input:focus{border-color:rgba(255,255,255,.6)}
+.time-options{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.time-opt{flex:1;min-width:80px}
+.time-opt input{display:none}
+.time-opt label{display:block;text-align:center;padding:10px 8px;border:1.5px solid rgba(255,255,255,.25);border-radius:8px;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:border-color .2s,background .2s,color .2s;font-weight:500}
+.time-opt input:checked+label{border-color:#fff;background:rgba(255,255,255,.15);color:#fff}
+.cta-form .pd-check{color:rgba(255,255,255,.55);font-size:13px;display:flex;align-items:flex-start;gap:8px;margin-bottom:16px;cursor:pointer}
+.cta-form .pd-check input{width:15px;height:15px;flex-shrink:0;margin-top:2px}
+.cta-contacts{display:flex;flex-direction:column;gap:16px}
+.cta-contact-item{display:flex;align-items:center;gap:16px;color:rgba(255,255,255,.85);font-size:16px}
+.cta-contact-icon{width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cta-contact-label{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:2px}
+.cta-contact-value{font-weight:600}
+
+/* ─── LEGAL ──────────────────────────────────── */
+.legal-section{background:#F1F5F9;padding:48px 0}
+.legal-box{background:#fff;border-radius:var(--r);padding:28px 32px;border:1px solid var(--border)}
+.legal-box h3{font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px}
+.legal-box p{font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:12px}
+.legal-links{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.legal-links a{font-size:13px;color:var(--primary);text-decoration:underline;text-underline-offset:3px}
+
+/* ─── FOOTER ─────────────────────────────────── */
+.footer{background:#1A2332;padding:60px 0 32px;color:rgba(255,255,255,.65)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;margin-bottom:40px}
+.footer-logo{font-size:22px;font-weight:800;color:#fff;margin-bottom:12px}
+.footer-logo span{color:var(--secondary-light)}
+.footer-desc{font-size:14px;line-height:1.65;margin-bottom:16px}
+.footer-requisites{font-size:12px;line-height:1.8;color:rgba(255,255,255,.4)}
+.footer h4{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:rgba(255,255,255,.45);margin-bottom:16px}
+.footer-nav{display:flex;flex-direction:column;gap:8px}
+.footer-nav a{font-size:14px;color:rgba(255,255,255,.65);transition:color .2s}
+.footer-nav a:hover{color:#fff}
+.footer-contacts{display:flex;flex-direction:column;gap:10px}
+.footer-contact{font-size:14px}
+.footer-contact a{color:rgba(255,255,255,.65);transition:color .2s}
+.footer-contact a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:gap;gap:12px;font-size:13px;color:rgba(255,255,255,.35)}
+.footer-bottom a{color:rgba(255,255,255,.45);transition:color .2s}
+.footer-bottom a:hover{color:rgba(255,255,255,.75)}
+
+/* ─── FORMS SHARED ───────────────────────────── */
+.form-input{width:100%;padding:13px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;color:var(--text);background:#fff;outline:none;transition:border-color .2s;margin-bottom:10px}
+.form-input:focus{border-color:var(--primary)}
+.form-pd{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text-muted);margin-bottom:14px;cursor:pointer;line-height:1.5}
+.form-pd input{width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:var(--primary)}
+.form-success{text-align:center;padding:20px 0;display:none}
+.form-success.show{display:block}
+.form-success svg{margin:0 auto 12px}
+.form-success h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.form-success p{font-size:14px;color:var(--text-muted)}
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media(max-width:1024px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero h1{font-size:32px}
+  .expertise-layout{grid-template-columns:1fr}
+  .cta-layout{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .section{padding:56px 0}
+  .nav{display:none}
+  .header-phone{display:none}
+  .header-contacts .btn{display:none}
+  .burger{display:flex}
+  .pain-grid{grid-template-columns:1fr 1fr}
+  .now-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr;gap:32px}
+  .steps-grid::before{display:none}
+  .step-card{padding:0}
+  .offering-grid{grid-template-columns:1fr}
+  .cases-grid{grid-template-columns:1fr}
+  .reviews-grid{grid-template-columns:1fr}
+  .price-layout{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .cta-layout{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  body{padding-bottom:80px}
+}
+@media(max-width:480px){
+  .pain-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr}
+  .hero-badges{flex-direction:column}
+  .calc-card{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════ -->
+<header class="header" id="header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#" class="logo">Банкрот<span>Онлайн</span></a>
+      <nav class="nav">
+        <a href="#how">Как работает</a>
+        <a href="#price">Цена</a>
+        <a href="#faq">Вопросы</a>
+        <a href="#cta">Консультация</a>
+      </nav>
+      <div class="header-contacts">
+        <a href="tel:+78001234567" class="header-phone">8 800 123-45-67</a>
+        <a href="https://t.me/yourusername" class="icon-btn" title="Telegram" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.168l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.978.391z"/></svg>
+        </a>
+        <a href="https://wa.me/78001234567" class="icon-btn" title="WhatsApp" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.073 23.927l6.256-1.42A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.372l-.359-.214-3.713.844.878-3.599-.234-.371A9.794 9.794 0 012.182 12c0-5.421 4.396-9.818 9.818-9.818 5.421 0 9.818 4.397 9.818 9.818 0 5.422-4.397 9.818-9.818 9.818z"/></svg>
+        </a>
+        <a href="#cta" class="btn btn-primary" style="margin-left:4px;padding:10px 20px;font-size:14px">Бесплатная консультация</a>
+      </div>
+      <button class="burger" id="burger" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#how" onclick="closeMenu()">Как работает</a>
+  <a href="#price" onclick="closeMenu()">Цена</a>
+  <a href="#faq" onclick="closeMenu()">Вопросы</a>
+  <a href="#cases" onclick="closeMenu()">Кейсы</a>
+  <a href="tel:+78001234567" class="btn btn-secondary">☎ 8 800 123-45-67</a>
+  <a href="#cta" class="btn btn-primary" onclick="closeMenu()">Бесплатная консультация</a>
+</nav>
+
+<!-- Mobile sticky bar -->
+<div class="sticky-bar" id="stickyBar" style="display:none">
+  <a href="tel:+78001234567" class="btn btn-secondary">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    Позвонить
+  </a>
+  <a href="https://t.me/yourusername" class="btn btn-primary" target="_blank">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.168l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.978.391z"/></svg>
+    Telegram
+  </a>
+</div>
+
+<!-- ═══ HERO ══════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-label">Работаем дистанционно по всей России</div>
+        <h1>Долги растут, а выхода не видно? Разберёмся с вашей ситуацией по закону — бесплатно и без обязательств</h1>
+        <p class="hero-sub">Помогаем физическим лицам пройти процедуру банкротства или реструктуризации долгов дистанционно — без поездок в офис.</p>
+        <div class="hero-badges">
+          <div class="hero-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Бесплатная консультация
+          </div>
+          <div class="hero-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Дистанционно — без поездок
+          </div>
+          <div class="hero-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            По ФЗ № 127
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator -->
+      <div class="calc-card">
+        <div class="calc-progress" id="calcProgress">
+          <div class="calc-progress-dot active" id="pd1"></div>
+          <div class="calc-progress-dot" id="pd2"></div>
+          <div class="calc-progress-dot" id="pd3"></div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="calc-step active" id="step1">
+          <div class="calc-step-label">Шаг 1 из 3 — Ваш долг</div>
+          <div class="calc-question">Какова общая сумма ваших долгов?</div>
+          <div class="calc-options">
+            <label class="calc-option" onclick="selectOption(this,'debt','small')">
+              <input type="radio" name="debt" value="small"> До 300 000 ₽
+            </label>
+            <label class="calc-option" onclick="selectOption(this,'debt','medium')">
+              <input type="radio" name="debt" value="medium"> 300 000 — 1 000 000 ₽
+            </label>
+            <label class="calc-option" onclick="selectOption(this,'debt','large')">
+              <input type="radio" name="debt" value="large"> Больше 1 000 000 ₽
+            </label>
+          </div>
+          <div class="calc-nav">
+            <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="nextStep(1)">Далее →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="calc-step" id="step2">
+          <div class="calc-step-label">Шаг 2 из 3 — Жильё</div>
+          <div class="calc-question">Есть ли у вас квартира или дом?</div>
+          <div class="calc-options">
+            <label class="calc-option" onclick="selectOption(this,'housing','own'); showHint('hint1')">
+              <input type="radio" name="housing" value="own"> Да, единственное жильё (не ипотека)
+            </label>
+            <div class="calc-hint" id="hint1">✓ Единственное жильё без залога защищено законом</div>
+            <label class="calc-option" onclick="selectOption(this,'housing','mortgage'); showHint('hint2')">
+              <input type="radio" name="housing" value="mortgage"> Да, ипотека или залог
+            </label>
+            <div class="calc-hint" id="hint2">Обсудим ипотечный вопрос на консультации — варианты есть</div>
+            <label class="calc-option" onclick="selectOption(this,'housing','none'); hideHints()">
+              <input type="radio" name="housing" value="none"> Нет / снимаю
+            </label>
+          </div>
+          <div class="calc-nav">
+            <button class="btn btn-back" onclick="prevStep(2)">← Назад</button>
+            <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="nextStep(2)">Далее →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="calc-step" id="step3">
+          <div class="calc-step-label">Шаг 3 из 3 — Доход</div>
+          <div class="calc-question">Есть ли у вас стабильный доход?</div>
+          <div class="calc-options">
+            <label class="calc-option" onclick="selectOption(this,'income','yes')">
+              <input type="radio" name="income" value="yes"> Да (зарплата, пенсия)
+            </label>
+            <label class="calc-option" onclick="selectOption(this,'income','no')">
+              <input type="radio" name="income" value="no"> Нет / непостоянный
+            </label>
+          </div>
+          <div class="calc-nav">
+            <button class="btn btn-back" onclick="prevStep(3)">← Назад</button>
+            <button class="btn btn-primary" style="flex:1;justify-content:center" onclick="showResult()">Узнать результат</button>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="calc-result" id="calcResult">
+          <div class="calc-result-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B6B5A" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="calc-result-title" id="resultTitle"></div>
+          <div class="calc-result-sub" id="resultSub"></div>
+          <div class="calc-form">
+            <input type="text" id="calcName" class="form-input" placeholder="Ваше имя">
+            <input type="tel" id="calcPhone" class="form-input" placeholder="Номер телефона">
+            <label class="form-pd">
+              <input type="checkbox" id="calcPd"> Согласен с <a href="#" style="color:var(--primary);text-decoration:underline">политикой обработки персональных данных</a>
+            </label>
+            <button class="btn btn-primary btn-lg" style="width:100%;justify-content:center" onclick="submitCalcForm()">Получить консультацию →</button>
+            <p style="font-size:12px;color:var(--text-muted);text-align:center;margin-top:10px">Без давления. Звонок в удобное время.</p>
+          </div>
+        </div>
+
+        <!-- Success -->
+        <div class="calc-success" id="calcSuccess">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#DCFCE7"/><path d="M8 12l3 3 5-5" stroke="#166534" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Заявка принята</h3>
+          <p>Перезвоним вам в течение одного рабочего часа</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PAIN ══════════════════════════════════════ -->
+<section class="section section-alt" id="pain">
+  <div class="container">
+    <div class="tag">Узнаёте себя?</div>
+    <h2 class="section-title fade-up">Если узнаёте себя — вы попали по адресу</h2>
+    <div class="pain-grid">
+      <div class="pain-card fade-up">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.98 3.4 2 2 0 0 1 3.96 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.99 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <p>Коллекторы звонят каждый день — и вам, и родственникам</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <p>Из зарплаты удерживают по исполнительному листу, на жизнь почти ничего не остаётся</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <p>Брали один кредит, чтобы закрыть другой — теперь 4–5 кредитов и несколько займов МФО</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <p>Стыдно признаться близким, сколько на самом деле долгов</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <p>Боитесь, что заберут квартиру — особенно если есть дети</p>
+      </div>
+      <div class="pain-card fade-up">
+        <div class="pain-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <p>Платили минимальный платёж, но долг только рос из-за процентов и штрафов</p>
+      </div>
+    </div>
+    <p class="pain-footer fade-up">Это не слабость и не вина. Это ситуация, из которой есть <strong>законный выход</strong> — и мы знаем, как его найти.</p>
+  </div>
+</section>
+
+<!-- ═══ NOW TABLE ══════════════════════════════════ -->
+<section class="section" id="now">
+  <div class="container">
+    <div class="tag">Сравнение</div>
+    <h2 class="section-title fade-up">Что будет с долгами, пока вы думаете?</h2>
+    <div class="now-grid">
+      <div class="now-card bad fade-up">
+        <div class="now-card-label">Сейчас — без действий</div>
+        <h3>Ситуация ухудшается</h3>
+        <ul class="now-list">
+          <li>Долг растёт: проценты, пени и штрафы набегают каждый день</li>
+          <li>Приставы могут арестовать счёт или удерживать из зарплаты</li>
+          <li>Коллекторы продолжают звонить вам и родственникам</li>
+          <li>Количество кредиторов не уменьшается</li>
+        </ul>
+      </div>
+      <div class="now-card mid fade-up">
+        <div class="now-card-label">После подачи заявления</div>
+        <h3>Ситуация стабилизируется</h3>
+        <ul class="now-list">
+          <li>Звонки коллекторов и банков — останавливаются по закону</li>
+          <li>Аресты счетов снимаются, исполнительные производства приостанавливаются</li>
+          <li>Новые требования кредиторов замораживаются</li>
+          <li>Начинается официальный процесс</li>
+        </ul>
+      </div>
+      <div class="now-card good fade-up">
+        <div class="now-card-label">После завершения процедуры</div>
+        <h3>Чистый лист</h3>
+        <ul class="now-list">
+          <li>Долги официально списаны решением суда</li>
+          <li>Можно открыть новый счёт и карту</li>
+          <li>Звонки и исполнительные листы — в прошлом</li>
+          <li>Начинаете финансовую жизнь заново</li>
+        </ul>
+      </div>
+    </div>
+    <div class="now-note fade-up">
+      <strong>Обращение к нам не «запускает счётчик»</strong> и не ухудшает текущую ситуацию с просрочкой. Консультация бесплатная и ни к чему не обязывает.
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ══════════════════════════════ -->
+<section class="section section-alt" id="how">
+  <div class="container">
+    <div class="tag">Процесс</div>
+    <h2 class="section-title fade-up">Три шага от заявки до освобождения от долгов</h2>
+    <div class="steps-grid">
+      <div class="step-card fade-up">
+        <div class="step-num">1</div>
+        <div class="step-time">1–3 дня</div>
+        <div class="step-title">Бесплатная диагностика</div>
+        <div class="step-desc">Анализируем вашу ситуацию: долги, имущество, доход. Определяем оптимальный вариант — МФЦ, суд или реструктуризация.</div>
+      </div>
+      <div class="step-card fade-up" style="transition-delay:.1s">
+        <div class="step-num">2</div>
+        <div class="step-time">2–4 недели</div>
+        <div class="step-title">Подготовка документов</div>
+        <div class="step-desc">Собираем полный пакет и готовим заявление. Всё дистанционно — без поездок в офис. Вы только подписываете то, что мы подготовили.</div>
+      </div>
+      <div class="step-card fade-up" style="transition-delay:.2s">
+        <div class="step-num">3</div>
+        <div class="step-time">6–14 месяцев</div>
+        <div class="step-title">Сопровождение до завершения</div>
+        <div class="step-desc">Ведём общение с финансовым управляющим, банками и приставами. Представляем ваши интересы. Вы — живёте дальше.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OFFERING ══════════════════════════════════ -->
+<section class="section" id="offering">
+  <div class="container">
+    <div class="tag">Состав услуги</div>
+    <h2 class="section-title fade-up">Что мы делаем — и что остаётся за вами</h2>
+    <div class="offering-grid">
+      <div class="offering-card primary fade-up">
+        <h3>Берём на себя</h3>
+        <ul class="check-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Анализ ситуации и выбор процедуры</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Сбор и подготовка всех документов</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Составление заявления и описей имущества</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Подача в арбитражный суд или МФЦ</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Общение с финансовым управляющим</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Переговоры с банками и коллекторами</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Публикации в ЕФРСБ</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Представление на судебных заседаниях</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Сопровождение до получения решения суда</li>
+        </ul>
+      </div>
+      <div class="offering-card secondary fade-up" style="transition-delay:.1s">
+        <h3>Остаётся за вами</h3>
+        <ul class="check-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Подписать документы (электронно или очно)</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Предоставить справки по нашему списку</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--secondary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>При необходимости явиться в суд (заранее предупреждаем)</li>
+        </ul>
+        <div style="margin-top:24px;padding:20px;background:var(--bg);border-radius:10px">
+          <p style="font-size:15px;color:var(--text-muted);line-height:1.6">
+            <strong style="color:var(--text)">Всё сопровождение — дистанционно:</strong> Telegram, WhatsApp, email. Звонки — по предварительному согласованию.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERTISE ══════════════════════════════════ -->
+<section class="section section-alt" id="expertise">
+  <div class="container">
+    <div class="tag">Команда</div>
+    <h2 class="section-title fade-up">Кто ведёт ваше дело</h2>
+    <div class="expertise-layout">
+      <div class="expert-card fade-up">
+        <div class="expert-avatar">
+          <img src="photo.jpg" alt="Фото адвоката">
+        </div>
+        <div class="expert-name">Иванов Иван Иванович</div>
+        <div class="expert-status">Адвокат · Удостоверение № ХХ-ХХХ</div>
+        <div class="expert-spec">Специализация: банкротство физических лиц</div>
+        <div class="disclaimer-box">
+          Мы — юристы-консультанты, которые готовят документы и сопровождают процедуру. Финансовый управляющий — независимое лицо, назначаемое арбитражным судом из СРО.
+        </div>
+      </div>
+      <div class="fade-up" style="transition-delay:.1s">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" data-target="143">0</div>
+            <div class="stat-label">завершённых дел</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-target-text="2,4 млрд ₽">2,4 млрд ₽</div>
+            <div class="stat-label">сопровождено к списанию</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-target="94" data-suffix="%">0%</div>
+            <div class="stat-label">дел завершены в пользу клиента</div>
+          </div>
+        </div>
+        <div class="law-badge">
+          <p><strong>Правовая основа:</strong> процедура банкротства физических лиц регулируется Федеральным законом № 127-ФЗ «О несостоятельности (банкротстве)» в редакции 2024–2025 гг. Это законный способ выйти из долговой ситуации, введённый в России с 2015 года. С тех пор его успешно прошли более миллиона граждан.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASES ══════════════════════════════════════ -->
+<section class="section" id="cases">
+  <div class="container">
+    <div class="tag">Результаты</div>
+    <h2 class="section-title fade-up">Реальные истории — реальные результаты</h2>
+    <div class="cases-grid">
+      <div class="case-card fade-up">
+        <div class="case-amount">620 000 ₽</div>
+        <div class="case-result">Долг списан</div>
+        <div class="case-meta">
+          <span>3 банка (Сбербанк, ВТБ, Тинькофф)</span>
+          <span>Срок процедуры: 9 месяцев</span>
+          <span>Москва, 2024 г.</span>
+        </div>
+      </div>
+      <div class="case-card fade-up" style="transition-delay:.1s">
+        <div class="case-amount">1 840 000 ₽</div>
+        <div class="case-result">Долг списан</div>
+        <div class="case-meta">
+          <span>5 кредиторов (банки + МФО)</span>
+          <span>Срок процедуры: 11 месяцев</span>
+          <span>Санкт-Петербург, 2024 г.</span>
+        </div>
+      </div>
+      <div class="case-card fade-up" style="transition-delay:.2s">
+        <div class="case-amount">480 000 ₽</div>
+        <div class="case-result">Долг списан</div>
+        <div class="case-meta">
+          <span>МФО + долг по ЖКХ</span>
+          <span>Срок процедуры: 7 месяцев</span>
+          <span>Новосибирск, 2023 г.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-header">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5494)">АН</div>
+          <div>
+            <div class="review-name">Александр Н.</div>
+            <div class="review-meta">Москва · долг 620 000 ₽ · 2024</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Я очень долго откладывал, думал само как-нибудь. За год долг вырос с 480 до 620 тысяч рублями процентов. Подали заявление, через 9 месяцев суд вынес решение о списании. Всё вели сами, я только подписывал.»</div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:.1s">
+        <div class="review-header">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1B6B5A,#238A73)">МП</div>
+          <div>
+            <div class="review-name">Марина П.</div>
+            <div class="review-meta">Екатеринбург · долг 1,2 млн ₽ · 2024</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Не верила, что это реально работает. Думала, все юристы по банкротству — разводилы. Оказалось нет. Объяснили каждый шаг, коллекторы перестали звонить сразу после подачи. Спасибо огромное.»</div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-header">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#4A7C9E,#2A5494)">ОС</div>
+          <div>
+            <div class="review-name">Ольга С.</div>
+            <div class="review-meta">Казань · долг 840 000 ₽ · 2023</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Всего боялась, особенно за квартиру — нам с детьми идти некуда. Оказалось, единственное жильё защищено законом. Никто ничего не забрал. Долг списан, живём спокойно.»</div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay:.1s">
+        <div class="review-header">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#374151,#6B7280)">ДМ</div>
+          <div>
+            <div class="review-name">Дмитрий М.</div>
+            <div class="review-meta">Краснодар · долg 480 000 ₽ · 2023</div>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">«Брал кредит за кредитом, думал само рассосётся. Не рассосалось. Обратился, объяснили что к чему, собрали документы, провели через суд. Всё четко, без лишних слов. Рекомендую.»</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICE ══════════════════════════════════════ -->
+<section class="section section-alt" id="price">
+  <div class="container">
+    <div class="tag">Стоимость</div>
+    <h2 class="section-title fade-up">Сколько стоит и как платить</h2>
+    <div class="price-layout">
+      <div class="fade-up">
+        <div class="mfc-card">
+          <h3>Бесплатный вариант через МФЦ</h3>
+          <p>Если ваш долг — от 25 000 до 1 000 000 ₽ и исполнительное производство уже окончено — вы можете пройти банкротство <strong>бесплатно через МФЦ</strong>: без госпошлины и без депозита, без суда.</p>
+          <p>Мы поможем разобраться, подходит ли вам этот путь, и подготовим все документы.</p>
+          <a href="#cta" class="btn btn-primary" style="width:100%;justify-content:center">Узнать, подхожу ли я</a>
+        </div>
+        <div class="price-form">
+          <h3>Узнать точную стоимость для вашей ситуации</h3>
+          <div id="priceFormBody">
+            <input type="text" id="priceName" class="form-input" placeholder="Ваше имя">
+            <input type="tel" id="pricePhone" class="form-input" placeholder="Номер телефона">
+            <label class="form-pd">
+              <input type="checkbox" id="pricePd"> Согласен с политикой обработки персональных данных
+            </label>
+            <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitPriceForm()">Рассчитать бесплатно →</button>
+          </div>
+          <div class="form-success" id="priceSuccess">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#DCFCE7"/><path d="M8 12l3 3 5-5" stroke="#166534" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <h3>Заявка принята</h3>
+            <p>Перезвоним в течение рабочего часа</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ════════════════════════════════════════ -->
+<section class="section section-alt" id="faq" style="background:var(--bg)">
+  <div class="container">
+    <div class="tag">FAQ</div>
+    <h2 class="section-title fade-up" style="text-align:center">Отвечаем на самые частые вопросы</h2>
+    <div class="faq-list">
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Заберут ли мою квартиру?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Единственное жильё, на которое не оформлен залог (ипотека), защищено законом — ст. 446 ГПК РФ. Его нельзя включить в конкурсную массу. Ипотечное жильё — другая ситуация: если есть просрочка по ипотеке, банк-залогодержатель имеет право на реализацию. Вашу конкретную ситуацию разберём на первой бесплатной консультации.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Что будет с зарплатой и картой прямо сейчас?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Если против вас уже идёт исполнительное производство, приставы могут удерживать до 50% зарплаты. После подачи заявления о банкротстве — удержания приостанавливаются. До подачи мы расскажем, что можно сделать законно уже сегодня.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Узнают ли на работе?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Сведения о банкротстве публикуются в ЕФРСБ и газете «Коммерсантъ», но работодатели, как правило, эти источники не мониторят. Специально уведомлять работодателя закон не требует. Исключение — должности с материальной ответственностью и государственная служба: уточним на консультации.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Перестанут ли звонить коллекторы?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">После принятия судом заявления о банкротстве — звонки коллекторов и требования кредиторов прекращаются автоматически. Все претензии переходят в рамки дела о банкротстве через арбитражный суд.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Сколько длится процедура?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Внесудебное банкротство через МФЦ — 6 месяцев без суда. Судебная процедура — в среднем 8–12 месяцев, в сложных случаях до 14 месяцев и дольше. Конкретные сроки зависят от вашей ситуации.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Спишут ли все долги?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Списываются: кредиты банков, займы МФО, долги по ЖКХ, налоги и штрафы (в большинстве случаев). Не списываются: алименты, возмещение вреда здоровью, субсидиарная ответственность для бывших директоров компаний. Точный список — только после анализа ваших конкретных долгов.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Что будет с машиной?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Автомобиль включается в конкурсную массу, если он не является единственным средством для заработка (такси, грузоперевозки). Если машина нужна для работы — этот аргумент можно использовать в суде. Разберём вашу ситуацию на консультации.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Что, если за последние 3 года были сделки с имуществом?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Финансовый управляющий вправе оспорить сделки за последние 3 года до подачи заявления — продажу и дарение имущества, особенно родственникам по нерыночной цене. Это важно учитывать заранее. Расскажем, какие риски есть именно в вашем случае.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Можно ли после банкротства брать кредиты?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Формально — да, запрета нет. Но в течение 5 лет вы обязаны сообщать кредитору о факте банкротства. Банки относятся к таким клиентам осторожно, поэтому одобрение на крупные кредиты в первые годы маловероятно.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Можно ли выехать за границу?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Суд вправе ввести временное ограничение на выезд, но это применяется не всегда и только на период процедуры. После завершения ограничение снимается автоматически.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Что, если у меня нет денег даже на рассрочку?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Если ваш долг до 1 000 000 ₽ — есть бесплатный вариант через МФЦ: без госпошлины и депозита. Для судебного банкротства обсудим минимальный первый платёж на консультации. Мы ищем решение под реальную ситуацию.</div></div>
+      </div>
+      <div class="faq-item fade-up">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          Это законно? Не мошенничество?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Банкротство физических лиц — законная процедура, введённая в России с 2015 года (ФЗ № 127 «О несостоятельности (банкротстве)»). С 2015 по 2024 год её прошли более миллиона граждан. Мы оказываем юридические консультационные услуги и сопровождение — не «серые схемы».</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══════════════════════════════════ -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <div class="cta-layout">
+      <div>
+        <div class="tag" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.85)">Запись на консультацию</div>
+        <h2 class="section-title">Каждый день без решения — это новые проценты и пени</h2>
+        <p class="section-sub">Запишитесь на бесплатную консультацию. Мы разберём вашу ситуацию и скажем честно, какой путь подходит именно вам.</p>
+        <div class="cta-contacts">
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12 19.79 19.79 0 0 1 1.98 3.4 2 2 0 0 1 3.96 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.99 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="cta-contact-label">Телефон</div>
+              <a href="tel:+78001234567" class="cta-contact-value" style="color:#fff">8 800 123-45-67</a>
+            </div>
+          </div>
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,.85)"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.168l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.978.391z"/></svg>
+            </div>
+            <div>
+              <div class="cta-contact-label">Telegram</div>
+              <a href="https://t.me/yourusername" class="cta-contact-value" style="color:#fff" target="_blank">@yourusername</a>
+            </div>
+          </div>
+          <div class="cta-contact-item">
+            <div class="cta-contact-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="rgba(255,255,255,.85)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.073 23.927l6.256-1.42A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.372l-.359-.214-3.713.844.878-3.599-.234-.371A9.794 9.794 0 012.182 12c0-5.421 4.396-9.818 9.818-9.818 5.421 0 9.818 4.397 9.818 9.818 0 5.422-4.397 9.818-9.818 9.818z"/></svg>
+            </div>
+            <div>
+              <div class="cta-contact-label">WhatsApp</div>
+              <a href="https://wa.me/78001234567" class="cta-contact-value" style="color:#fff" target="_blank">Написать</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cta-form">
+        <div id="ctaFormBody">
+          <p style="font-size:15px;font-weight:600;color:#fff;margin-bottom:20px">Записаться на консультацию</p>
+          <input type="text" id="ctaName" placeholder="Ваше имя">
+          <input type="tel" id="ctaPhone" placeholder="Номер телефона">
+          <p style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:10px;font-weight:500">Удобное время для звонка:</p>
+          <div class="time-options">
+            <div class="time-opt"><input type="radio" name="time" id="tMorn" value="утром"><label for="tMorn">Утром</label></div>
+            <div class="time-opt"><input type="radio" name="time" id="tDay" value="днём" checked><label for="tDay">Днём</label></div>
+            <div class="time-opt"><input type="radio" name="time" id="tEve" value="вечером"><label for="tEve">Вечером</label></div>
+          </div>
+          <label class="cta-form pd-check" style="display:flex;align-items:flex-start;gap:8px;margin-bottom:16px;font-size:13px;color:rgba(255,255,255,.55);cursor:pointer">
+            <input type="checkbox" id="ctaPd" style="width:15px;height:15px;flex-shrink:0;margin-top:2px"> Согласен с политикой обработки персональных данных
+          </label>
+          <button class="btn btn-white btn-lg" style="width:100%;justify-content:center" onclick="submitCtaForm()">Записаться на консультацию →</button>
+          <p style="font-size:12px;color:rgba(255,255,255,.4);text-align:center;margin-top:12px">Без давления. Консультация бесплатная.</p>
+        </div>
+        <div class="form-success" id="ctaSuccess" style="color:#fff">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="rgba(255,255,255,.15)"/><path d="M8 12l3 3 5-5" stroke="#4ADE80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3 style="color:#fff">Заявка принята</h3>
+          <p style="color:rgba(255,255,255,.65)">Перезвоним в течение одного рабочего часа</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LEGAL ══════════════════════════════════════ -->
+<section class="legal-section">
+  <div class="container">
+    <div class="legal-box">
+      <h3>Обязательное предупреждение (ст. 28.1 Федерального закона «О рекламе», действует с 01.01.2026)</h3>
+      <p>Банкротство влечёт негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ.</p>
+      <p>Решение о признании гражданина банкротом принимает арбитражный суд, а не наша организация. Результат зависит от конкретных обстоятельств каждого дела. Мы оказываем консультационные и юридические услуги по сопровождению процедуры банкротства в рамках ФЗ № 127. Ни один из указанных на сайте результатов не является гарантией исхода в вашей конкретной ситуации.</p>
+      <div class="legal-links">
+        <a href="#">Публичная оферта</a>
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Согласие на обработку персональных данных</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Банкрот<span>Онлайн</span></div>
+        <p class="footer-desc">Цифровой юридический сервис. Помогаем физическим лицам пройти процедуру банкротства дистанционно в соответствии с ФЗ № 127.</p>
+        <div class="footer-requisites">
+          ИП Иванов Иван Иванович<br>
+          ОГРНИП: 000000000000000<br>
+          ИНН: 000000000000<br>
+          Юридический адрес: г. Москва, ул. Примерная, д. 1
+        </div>
+      </div>
+      <div>
+        <h4>Навигация</h4>
+        <nav class="footer-nav">
+          <a href="#how">Как работает</a>
+          <a href="#offering">Что входит</a>
+          <a href="#cases">Кейсы</a>
+          <a href="#price">Цена</a>
+          <a href="#faq">Вопросы</a>
+          <a href="#cta">Консультация</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <div class="footer-contacts">
+          <div class="footer-contact"><a href="tel:+78001234567">8 800 123-45-67</a></div>
+          <div class="footer-contact"><a href="mailto:info@example.com">info@example.com</a></div>
+          <div class="footer-contact"><a href="https://t.me/yourusername" target="_blank">Telegram</a></div>
+          <div class="footer-contact"><a href="https://wa.me/78001234567" target="_blank">WhatsApp</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 БанкротОнлайн. Все права защищены.</span>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center">
+        <a href="#">Публичная оферта</a>
+        <a href="#">Политика конфиденциальности</a>
+        <span>Не является публичной офертой</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── CALC STATE ──────────────────────────────────
+const state = {debt:null, housing:null, income:null, step:1};
+
+function selectOption(el, key, val){
+  state[key] = val;
+  el.closest('.calc-options').querySelectorAll('.calc-option').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function showHint(id){
+  document.querySelectorAll('.calc-hint').forEach(h=>h.classList.remove('show'));
+  const h = document.getElementById(id);
+  if(h) h.classList.add('show');
+}
+function hideHints(){
+  document.querySelectorAll('.calc-hint').forEach(h=>h.classList.remove('show'));
+}
+
+function nextStep(from){
+  const key = from===1?'debt':from===2?'housing':'income';
+  if(!state[key]){ alert('Выберите один из вариантов'); return; }
+  const next = from+1;
+  document.getElementById('step'+from).classList.remove('active');
+  document.getElementById('step'+next).classList.add('active');
+  updateProgress(next);
+  state.step = next;
+}
+
+function prevStep(from){
+  const prev = from-1;
+  document.getElementById('step'+from).classList.remove('active');
+  document.getElementById('step'+prev).classList.add('active');
+  updateProgress(prev);
+  state.step = prev;
+}
+
+function updateProgress(step){
+  for(let i=1;i<=3;i++){
+    const d = document.getElementById('pd'+i);
+    d.classList.remove('active','done');
+    if(i===step) d.classList.add('active');
+    else if(i<step) d.classList.add('done');
+  }
+}
+
+function showResult(){
+  if(!state.income){ alert('Выберите один из вариантов'); return; }
+  document.getElementById('step3').classList.remove('active');
+  document.getElementById('calcProgress').style.display='none';
+  const r = document.getElementById('calcResult');
+  r.classList.add('show');
+  let title='', sub='';
+  if(state.debt==='small' && state.housing!=='mortgage' && state.income==='no'){
+    title='Похоже, вам может подойти бесплатное банкротство через МФЦ';
+    sub='Без суда, без госпошлины и без депозита. Уточним детали на консультации.';
+  } else if(state.housing==='mortgage' || state.debt==='large'){
+    title='Ваша ситуация требует индивидуального анализа';
+    sub='Запишитесь на бесплатную консультацию — разберём конкретно и без обязательств.';
+  } else {
+    title='По вашей ситуации возможна реструктуризация или судебная процедура банкротства';
+    sub='Определим оптимальный вариант на бесплатной консультации.';
+  }
+  document.getElementById('resultTitle').textContent=title;
+  document.getElementById('resultSub').textContent=sub;
+}
+
+function submitCalcForm(){
+  const name=document.getElementById('calcName').value.trim();
+  const phone=document.getElementById('calcPhone').value.trim();
+  const pd=document.getElementById('calcPd').checked;
+  if(!name||!phone){ alert('Заполните имя и телефон'); return; }
+  if(!pd){ alert('Необходимо согласие на обработку персональных данных'); return; }
+  document.getElementById('calcResult').style.display='none';
+  document.getElementById('calcSuccess').classList.add('show');
+}
+
+// ─── PRICE FORM ──────────────────────────────────
+function submitPriceForm(){
+  const name=document.getElementById('priceName').value.trim();
+  const phone=document.getElementById('pricePhone').value.trim();
+  const pd=document.getElementById('pricePd').checked;
+  if(!name||!phone){ alert('Заполните имя и телефон'); return; }
+  if(!pd){ alert('Необходимо согласие на обработку персональных данных'); return; }
+  document.getElementById('priceFormBody').style.display='none';
+  document.getElementById('priceSuccess').classList.add('show');
+}
+
+// ─── CTA FORM ────────────────────────────────────
+function submitCtaForm(){
+  const name=document.getElementById('ctaName').value.trim();
+  const phone=document.getElementById('ctaPhone').value.trim();
+  const pd=document.getElementById('ctaPd').checked;
+  if(!name||!phone){ alert('Заполните имя и телефон'); return; }
+  if(!pd){ alert('Необходимо согласие на обработку персональных данных'); return; }
+  document.getElementById('ctaFormBody').style.display='none';
+  document.getElementById('ctaSuccess').classList.add('show');
+}
+
+// ─── FAQ ─────────────────────────────────────────
+function toggleFaq(btn){
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ─── BURGER ──────────────────────────────────────
+document.getElementById('burger').addEventListener('click',function(){
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+function closeMenu(){ document.getElementById('mobileNav').classList.remove('open'); }
+
+// ─── STICKY HEADER ───────────────────────────────
+window.addEventListener('scroll',function(){
+  document.getElementById('header').classList.toggle('scrolled',window.scrollY>50);
+},{ passive:true });
+
+// ─── SCROLL ANIMATIONS ───────────────────────────
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>{ e.target.classList.add('visible'); },
+        e.target.dataset.delay || 0);
+      observer.unobserve(e.target);
+    }
+  });
+},{threshold:0.12});
+
+document.querySelectorAll('.fade-up').forEach((el,i)=>{
+  const siblings = el.parentElement.querySelectorAll('.fade-up');
+  let idx=0; siblings.forEach((s,j)=>{ if(s===el) idx=j; });
+  el.dataset.delay = idx*80;
+  observer.observe(el);
+});
+
+// ─── COUNTERS ────────────────────────────────────
+function animateCount(el){
+  const target = parseInt(el.dataset.target);
+  if(!target) return;
+  const suffix = el.dataset.suffix||'';
+  const duration = 2000;
+  const step = 16;
+  const steps = duration/step;
+  let current = 0;
+  const inc = target/steps;
+  const timer = setInterval(()=>{
+    current = Math.min(current+inc, target);
+    el.textContent = Math.floor(current)+suffix;
+    if(current>=target) clearInterval(timer);
+  },step);
+}
+
+const counterObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting && e.target.dataset.target){
+      animateCount(e.target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('[data-target]').forEach(el=>counterObserver.observe(el));
+
+// ─── MOBILE STICKY BAR ───────────────────────────
+setTimeout(()=>{
+  const bar = document.getElementById('stickyBar');
+  if(bar) bar.style.display='flex';
+},3000);
+
+// ─── SMOOTH SCROLL ───────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const target = document.querySelector(this.getAttribute('href'));
+    if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+</script>
+</body>
+</html>
