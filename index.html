@@ -80,6 +80,11 @@ button,input,select,textarea{font:inherit}
 .hero-grid{display:grid;grid-template-columns:1fr 440px;gap:56px;align-items:start}
 .hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:24px}
 .hero-label::before{content:'';width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0}
+.hero-author{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.hero-author-photo{width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.35);box-shadow:0 4px 16px rgba(0,0,0,.3);flex-shrink:0}
+.hero-author-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-author-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px}
+.hero-author-title{font-size:13px;color:rgba(255,255,255,.65);line-height:1.4}
 .hero h1{font-size:clamp(28px,4.2vw,46px);font-weight:800;line-height:1.15;color:#fff;margin-bottom:20px;letter-spacing:-.02em}
 .hero-sub{font-size:18px;color:rgba(255,255,255,.78);line-height:1.6;margin-bottom:32px;max-width:520px}
 .hero-badges{display:flex;flex-wrap:wrap;gap:10px}
@@ -395,6 +400,15 @@ button,input,select,textarea{font:inherit}
     <div class="hero-grid">
       <div>
         <div class="hero-label">Работаем дистанционно по всей России</div>
+        <div class="hero-author">
+          <div class="hero-author-photo">
+            <img src="photo.jpg" alt="Гучигов Тимерлан">
+          </div>
+          <div>
+            <div class="hero-author-name">Гучигов Тимерлан</div>
+            <div class="hero-author-title">Адвокат · более 8 лет занимается банкротством физических лиц</div>
+          </div>
+        </div>
         <h1>Долги растут, а выхода не видно? Разберёмся с вашей ситуацией по закону — бесплатно и без обязательств</h1>
         <p class="hero-sub">Помогаем физическим лицам пройти процедуру банкротства или реструктуризации долгов дистанционно — без поездок в офис.</p>
         <div class="hero-badges">
@@ -676,8 +690,8 @@ button,input,select,textarea{font:inherit}
         <div class="expert-avatar">
           <img src="photo.jpg" alt="Фото адвоката">
         </div>
-        <div class="expert-name">Иванов Иван Иванович</div>
-        <div class="expert-status">Адвокат · Удостоверение № ХХ-ХХХ</div>
+        <div class="expert-name">Гучигов Тимерлан</div>
+        <div class="expert-status">Адвокат · более 8 лет практики</div>
         <div class="expert-spec">Специализация: банкротство физических лиц</div>
         <div class="disclaimer-box">
           Мы — юристы-консультанты, которые готовят документы и сопровождают процедуру. Финансовый управляющий — независимое лицо, назначаемое арбитражным судом из СРО.
@@ -1007,7 +1021,7 @@ button,input,select,textarea{font:inherit}
         <div class="footer-logo">Банкрот<span>Онлайн</span></div>
         <p class="footer-desc">Цифровой юридический сервис. Помогаем физическим лицам пройти процедуру банкротства дистанционно в соответствии с ФЗ № 127.</p>
         <div class="footer-requisites">
-          ИП Иванов Иван Иванович<br>
+          Адвокат Гучигов Тимерлан<br>
           ОГРНИП: 000000000000000<br>
           ИНН: 000000000000<br>
           Юридический адрес: г. Москва, ул. Примерная, д. 1
