@@ -77,16 +77,15 @@ button,input,select,textarea{font:inherit}
 /* ─── HERO ───────────────────────────────────── */
 .hero{background:linear-gradient(135deg,#0F2447 0%,#1B3A6B 45%,#1B6B5A 100%);padding:72px 0 80px;overflow:hidden;position:relative}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.hero-grid{display:grid;grid-template-columns:280px 1fr 420px;gap:40px;align-items:start}
-.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:24px}
+.hero-grid{display:grid;grid-template-columns:380px 1fr;gap:48px;align-items:center}
+.hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:20px}
 .hero-label::before{content:'';width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0}
-.hero-photo-block{display:flex;flex-direction:column;gap:0}
-.hero-photo-wrap{width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.45);border:3px solid rgba(255,255,255,.2)}
+.hero-photo-block{position:relative}
+.hero-photo-wrap{width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.55);border:3px solid rgba(255,255,255,.18)}
 .hero-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top}
-.hero-photo-caption{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:0 0 14px 14px;padding:14px 16px;margin-top:-4px}
-.hero-photo-caption strong{display:block;font-size:16px;font-weight:700;color:#fff;margin-bottom:3px}
-.hero-photo-caption span{font-size:13px;color:rgba(255,255,255,.7)}
-.hero-region{font-size:clamp(26px,3.2vw,40px);font-weight:900;line-height:1.15;color:#fff;margin-bottom:18px;letter-spacing:-.02em}
+.hero-name-big{font-size:clamp(48px,5.5vw,80px);font-weight:900;color:#fff;line-height:.95;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:16px}
+.hero-name-big span{color:#4ADE80}
+.hero-region{font-size:clamp(20px,2.4vw,32px);font-weight:800;color:rgba(255,255,255,.95);line-height:1.2;letter-spacing:-.01em;text-transform:uppercase;border-left:4px solid #4ADE80;padding-left:16px;margin-bottom:24px}
 .hero h1{font-size:clamp(28px,4.2vw,46px);font-weight:800;line-height:1.15;color:#fff;margin-bottom:20px;letter-spacing:-.02em}
 .hero-sub{font-size:18px;color:rgba(255,255,255,.78);line-height:1.6;margin-bottom:32px;max-width:520px}
 .hero-badges{display:flex;flex-wrap:wrap;gap:10px}
@@ -310,9 +309,9 @@ button,input,select,textarea{font:inherit}
 
 /* ─── RESPONSIVE ─────────────────────────────── */
 @media(max-width:1024px){
-  .hero-grid{grid-template-columns:240px 1fr;gap:28px;flex-wrap:wrap}
-  .hero-grid .calc-card{grid-column:1/-1}
-  .hero h1,.hero-region{font-size:28px}
+  .hero-grid{grid-template-columns:280px 1fr;gap:32px}
+  .hero-name-big{font-size:40px}
+  .hero-region{font-size:18px}
   .expertise-layout{grid-template-columns:1fr}
   .cta-layout{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
@@ -324,8 +323,9 @@ button,input,select,textarea{font:inherit}
   .header-contacts .btn{display:none}
   .burger{display:flex}
   .hero-grid{grid-template-columns:1fr!important}
-  .hero-photo-wrap{max-width:260px;margin:0 auto}
-  .hero-photo-caption{max-width:260px;margin:0 auto}
+  .hero-photo-wrap{max-width:320px;margin:0 auto}
+  .hero-name-big{font-size:36px}
+  .hero-region{font-size:16px}
   .pain-grid{grid-template-columns:1fr 1fr}
   .now-grid{grid-template-columns:1fr}
   .steps-grid{grid-template-columns:1fr;gap:32px}
@@ -404,22 +404,22 @@ button,input,select,textarea{font:inherit}
 <section class="hero">
   <div class="container">
     <div class="hero-grid">
-      <!-- Фото адвоката -->
+      <!-- Фото адвоката — БОЛЬШОЕ, левая сторона -->
       <div class="hero-photo-block">
         <div class="hero-photo-wrap">
-          <img src="photo.jpg" alt="Гучигов Тимерлан — адвокат по банкротству">
-        </div>
-        <div class="hero-photo-caption">
-          <strong>Гучигов Тимерлан</strong>
-          <span>Адвокат · более 8 лет практики</span>
+          <img src="photo.jpg" alt="Адвокат Гучигов Тимерлан">
         </div>
       </div>
-      <!-- Текст -->
+
+      <!-- Текст справа -->
       <div>
-        <div class="hero-label">Работаем дистанционно по всей России</div>
-        <h1 class="hero-region">Списание кредитов и долгов в Чеченской Республике</h1>
-        <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.78);line-height:1.5;margin-bottom:20px;font-style:normal">Долги растут, а выхода не видно? Разберёмся с вашей ситуацией по закону — бесплатно и без обязательств</h2>
-        <p class="hero-sub">Помогаем физическим лицам пройти процедуру банкротства или реструктуризации долгов дистанционно — без поездок в офис.</p>
+        <div class="hero-label">Работаем по всей Чеченской Республике</div>
+
+        <h1 class="hero-name-big">Адвокат<br><span>Гучигов</span></h1>
+
+        <div class="hero-region">Списание кредитов и долгов<br>в Чеченской Республике<br>Тимерлан</div>
+
+        <p class="hero-sub">Более 8 лет помогаем жителям Чечни законно избавиться от кредитов, займов МФО и долгов — дистанционно, без поездок в суд.</p>
         <div class="hero-badges">
           <div class="hero-badge">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
