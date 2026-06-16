@@ -77,14 +77,16 @@ button,input,select,textarea{font:inherit}
 /* ─── HERO ───────────────────────────────────── */
 .hero{background:linear-gradient(135deg,#0F2447 0%,#1B3A6B 45%,#1B6B5A 100%);padding:72px 0 80px;overflow:hidden;position:relative}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
-.hero-grid{display:grid;grid-template-columns:1fr 440px;gap:56px;align-items:start}
+.hero-grid{display:grid;grid-template-columns:280px 1fr 420px;gap:40px;align-items:start}
 .hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:24px}
 .hero-label::before{content:'';width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0}
-.hero-author{display:flex;align-items:center;gap:14px;margin-bottom:28px}
-.hero-author-photo{width:64px;height:64px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.35);box-shadow:0 4px 16px rgba(0,0,0,.3);flex-shrink:0}
-.hero-author-photo img{width:100%;height:100%;object-fit:cover;object-position:center top}
-.hero-author-name{font-size:16px;font-weight:700;color:#fff;margin-bottom:2px}
-.hero-author-title{font-size:13px;color:rgba(255,255,255,.65);line-height:1.4}
+.hero-photo-block{display:flex;flex-direction:column;gap:0}
+.hero-photo-wrap{width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,.45);border:3px solid rgba(255,255,255,.2)}
+.hero-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-photo-caption{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:0 0 14px 14px;padding:14px 16px;margin-top:-4px}
+.hero-photo-caption strong{display:block;font-size:16px;font-weight:700;color:#fff;margin-bottom:3px}
+.hero-photo-caption span{font-size:13px;color:rgba(255,255,255,.7)}
+.hero-region{font-size:clamp(26px,3.2vw,40px);font-weight:900;line-height:1.15;color:#fff;margin-bottom:18px;letter-spacing:-.02em}
 .hero h1{font-size:clamp(28px,4.2vw,46px);font-weight:800;line-height:1.15;color:#fff;margin-bottom:20px;letter-spacing:-.02em}
 .hero-sub{font-size:18px;color:rgba(255,255,255,.78);line-height:1.6;margin-bottom:32px;max-width:520px}
 .hero-badges{display:flex;flex-wrap:wrap;gap:10px}
@@ -308,8 +310,9 @@ button,input,select,textarea{font:inherit}
 
 /* ─── RESPONSIVE ─────────────────────────────── */
 @media(max-width:1024px){
-  .hero-grid{grid-template-columns:1fr;gap:40px}
-  .hero h1{font-size:32px}
+  .hero-grid{grid-template-columns:240px 1fr;gap:28px;flex-wrap:wrap}
+  .hero-grid .calc-card{grid-column:1/-1}
+  .hero h1,.hero-region{font-size:28px}
   .expertise-layout{grid-template-columns:1fr}
   .cta-layout{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
@@ -320,6 +323,9 @@ button,input,select,textarea{font:inherit}
   .header-phone{display:none}
   .header-contacts .btn{display:none}
   .burger{display:flex}
+  .hero-grid{grid-template-columns:1fr!important}
+  .hero-photo-wrap{max-width:260px;margin:0 auto}
+  .hero-photo-caption{max-width:260px;margin:0 auto}
   .pain-grid{grid-template-columns:1fr 1fr}
   .now-grid{grid-template-columns:1fr}
   .steps-grid{grid-template-columns:1fr;gap:32px}
@@ -398,18 +404,21 @@ button,input,select,textarea{font:inherit}
 <section class="hero">
   <div class="container">
     <div class="hero-grid">
+      <!-- Фото адвоката -->
+      <div class="hero-photo-block">
+        <div class="hero-photo-wrap">
+          <img src="photo.jpg" alt="Гучигов Тимерлан — адвокат по банкротству">
+        </div>
+        <div class="hero-photo-caption">
+          <strong>Гучигов Тимерлан</strong>
+          <span>Адвокат · более 8 лет практики</span>
+        </div>
+      </div>
+      <!-- Текст -->
       <div>
         <div class="hero-label">Работаем дистанционно по всей России</div>
-        <div class="hero-author">
-          <div class="hero-author-photo">
-            <img src="photo.jpg" alt="Гучигов Тимерлан">
-          </div>
-          <div>
-            <div class="hero-author-name">Гучигов Тимерлан</div>
-            <div class="hero-author-title">Адвокат · более 8 лет занимается банкротством физических лиц</div>
-          </div>
-        </div>
-        <h1>Долги растут, а выхода не видно? Разберёмся с вашей ситуацией по закону — бесплатно и без обязательств</h1>
+        <h1 class="hero-region">Списание кредитов и долгов в Чеченской Республике</h1>
+        <h2 style="font-size:18px;font-weight:500;color:rgba(255,255,255,.78);line-height:1.5;margin-bottom:20px;font-style:normal">Долги растут, а выхода не видно? Разберёмся с вашей ситуацией по закону — бесплатно и без обязательств</h2>
         <p class="hero-sub">Помогаем физическим лицам пройти процедуру банкротства или реструктуризации долгов дистанционно — без поездок в офис.</p>
         <div class="hero-badges">
           <div class="hero-badge">
@@ -758,10 +767,10 @@ button,input,select,textarea{font:inherit}
     <div class="reviews-grid">
       <div class="review-card fade-up">
         <div class="review-header">
-          <div class="review-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5494)">АН</div>
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1B3A6B,#2A5494)">МА</div>
           <div>
-            <div class="review-name">Александр Н.</div>
-            <div class="review-meta">Москва · долг 620 000 ₽ · 2024</div>
+            <div class="review-name">Магомед А.</div>
+            <div class="review-meta">Грозный · долг 620 000 ₽ · 2024</div>
           </div>
         </div>
         <div class="review-stars">★★★★★</div>
@@ -769,10 +778,10 @@ button,input,select,textarea{font:inherit}
       </div>
       <div class="review-card fade-up" style="transition-delay:.1s">
         <div class="review-header">
-          <div class="review-avatar" style="background:linear-gradient(135deg,#1B6B5A,#238A73)">МП</div>
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1B6B5A,#238A73)">ФИ</div>
           <div>
-            <div class="review-name">Марина П.</div>
-            <div class="review-meta">Екатеринбург · долг 1,2 млн ₽ · 2024</div>
+            <div class="review-name">Фатима И.</div>
+            <div class="review-meta">Гудермес · долг 1,2 млн ₽ · 2024</div>
           </div>
         </div>
         <div class="review-stars">★★★★★</div>
@@ -780,10 +789,10 @@ button,input,select,textarea{font:inherit}
       </div>
       <div class="review-card fade-up">
         <div class="review-header">
-          <div class="review-avatar" style="background:linear-gradient(135deg,#4A7C9E,#2A5494)">ОС</div>
+          <div class="review-avatar" style="background:linear-gradient(135deg,#4A7C9E,#2A5494)">ИХ</div>
           <div>
-            <div class="review-name">Ольга С.</div>
-            <div class="review-meta">Казань · долг 840 000 ₽ · 2023</div>
+            <div class="review-name">Индира Х.</div>
+            <div class="review-meta">Аргун · долг 840 000 ₽ · 2023</div>
           </div>
         </div>
         <div class="review-stars">★★★★★</div>
@@ -791,10 +800,10 @@ button,input,select,textarea{font:inherit}
       </div>
       <div class="review-card fade-up" style="transition-delay:.1s">
         <div class="review-header">
-          <div class="review-avatar" style="background:linear-gradient(135deg,#374151,#6B7280)">ДМ</div>
+          <div class="review-avatar" style="background:linear-gradient(135deg,#374151,#6B7280)">КА</div>
           <div>
-            <div class="review-name">Дмитрий М.</div>
-            <div class="review-meta">Краснодар · долg 480 000 ₽ · 2023</div>
+            <div class="review-name">Казбек А.</div>
+            <div class="review-meta">Шали · долг 480 000 ₽ · 2023</div>
           </div>
         </div>
         <div class="review-stars">★★★★★</div>
