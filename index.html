@@ -347,6 +347,16 @@ button,input,select,textarea{font:inherit}
   .hero-badges{flex-direction:column}
   .calc-card{padding:24px 20px}
 }
+
+/* ─── MESSENGER BLOCK ────────────────────────── */
+.messenger-section{padding:64px 0;background:#fff;text-align:center}
+.messenger-title{font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--text);margin-bottom:10px}
+.messenger-sub{font-size:16px;color:var(--text-muted);margin-bottom:36px}
+.messenger-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-wa{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-weight:700;font-size:17px;padding:18px 36px;border-radius:100px;text-decoration:none;box-shadow:0 8px 24px rgba(37,211,102,.35);transition:transform .2s,box-shadow .2s}
+.btn-wa:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(37,211,102,.45)}
+.btn-tg{display:inline-flex;align-items:center;gap:10px;background:#0088CC;color:#fff;font-weight:700;font-size:17px;padding:18px 36px;border-radius:100px;text-decoration:none;box-shadow:0 8px 24px rgba(0,136,204,.3);transition:transform .2s,box-shadow .2s}
+.btn-tg:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,136,204,.4)}
 </style>
 </head>
 <body>
@@ -798,6 +808,24 @@ button,input,select,textarea{font:inherit}
   </div>
 </section>
 
+<!-- ═══ MESSENGERS MID ═════════════════════════════ -->
+<section class="messenger-section">
+  <div class="container">
+    <h2 class="messenger-title fade-up">Напишите нам прямо сейчас</h2>
+    <p class="messenger-sub fade-up">Бесплатная консультация — отвечаем быстро</p>
+    <div class="messenger-btns fade-up">
+      <a href="https://wa.me/79690125889" class="btn-wa" target="_blank">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.073 23.927l6.256-1.42A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.372l-.359-.214-3.713.844.878-3.599-.234-.371A9.794 9.794 0 012.182 12c0-5.421 4.396-9.818 9.818-9.818 5.421 0 9.818 4.397 9.818 9.818 0 5.422-4.397 9.818-9.818 9.818z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://t.me/spisanie_deneg" class="btn-tg" target="_blank">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.168l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.978.391z"/></svg>
+        Telegram
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ PRICE ══════════════════════════════════════ -->
 <section class="section section-alt" id="price">
   <div class="container">
@@ -950,7 +978,7 @@ button,input,select,textarea{font:inherit}
             </div>
             <div>
               <div class="cta-contact-label">Telegram</div>
-              <a href="https://t.me/yourusername" class="cta-contact-value" style="color:#fff" target="_blank">@yourusername</a>
+              <a href="https://t.me/spisanie_deneg" class="cta-contact-value" style="color:#fff" target="_blank">@spisanie_deneg</a>
             </div>
           </div>
           <div class="cta-contact-item">
@@ -959,9 +987,19 @@ button,input,select,textarea{font:inherit}
             </div>
             <div>
               <div class="cta-contact-label">WhatsApp</div>
-              <a href="https://wa.me/78001234567" class="cta-contact-value" style="color:#fff" target="_blank">Написать</a>
+              <a href="https://wa.me/79690125889" class="cta-contact-value" style="color:#fff" target="_blank">Написать</a>
             </div>
           </div>
+        </div>
+        <div class="messenger-btns" style="margin-top:28px">
+          <a href="https://wa.me/79690125889" class="btn-wa" target="_blank">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.522 5.847L.073 23.927l6.256-1.42A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.006-1.372l-.359-.214-3.713.844.878-3.599-.234-.371A9.794 9.794 0 012.182 12c0-5.421 4.396-9.818 9.818-9.818 5.421 0 9.818 4.397 9.818 9.818 0 5.422-4.397 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+          <a href="https://t.me/spisanie_deneg" class="btn-tg" target="_blank">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.168l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.978.391z"/></svg>
+            Telegram
+          </a>
         </div>
       </div>
       <div class="cta-form">
@@ -1037,8 +1075,8 @@ button,input,select,textarea{font:inherit}
         <div class="footer-contacts">
           <div class="footer-contact"><a href="tel:+78001234567">8 800 123-45-67</a></div>
           <div class="footer-contact"><a href="mailto:info@example.com">info@example.com</a></div>
-          <div class="footer-contact"><a href="https://t.me/yourusername" target="_blank">Telegram</a></div>
-          <div class="footer-contact"><a href="https://wa.me/78001234567" target="_blank">WhatsApp</a></div>
+          <div class="footer-contact"><a href="https://t.me/spisanie_deneg" target="_blank">Telegram @spisanie_deneg</a></div>
+          <div class="footer-contact"><a href="https://wa.me/79690125889" target="_blank">WhatsApp 8 969 012-58-89</a></div>
         </div>
       </div>
     </div>
