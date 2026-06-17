@@ -75,7 +75,7 @@ button,input,select,textarea{font:inherit}
 @media(max-width:768px){.sticky-bar{display:flex}}
 
 /* ─── HERO ───────────────────────────────────── */
-.hero{background:linear-gradient(135deg,#0F2447 0%,#1B3A6B 45%,#1B6B5A 100%);padding:72px 0 80px;overflow:hidden;position:relative}
+.hero{background:linear-gradient(135deg,#0F2447 0%,#1B3A6B 30%,#1B6B5A 60%,#0a1f3d 100%);background-size:300% 300%;animation:heroGradient 12s ease infinite;padding:72px 0 80px;overflow:hidden;position:relative}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .hero-grid{display:grid;grid-template-columns:380px 1fr;gap:48px;align-items:center}
 .hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:20px}
@@ -84,7 +84,7 @@ button,input,select,textarea{font:inherit}
 .hero-photo-wrap{width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:20px;box-shadow:0 24px 64px rgba(0,0,0,.55);border:3px solid rgba(255,255,255,.18)}
 .hero-photo-wrap img{width:100%;height:100%;object-fit:cover;object-position:center top}
 .hero-name-big{font-size:clamp(48px,5.5vw,80px);font-weight:900;color:#fff;line-height:.95;letter-spacing:-.03em;text-transform:uppercase;margin-bottom:16px}
-.hero-name-big span{color:#4ADE80}
+.hero-name-big span{background:linear-gradient(90deg,#4ADE80 0%,#86EFAC 40%,#4ADE80 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 3s linear infinite}
 .hero-region{font-size:clamp(20px,2.4vw,32px);font-weight:800;color:rgba(255,255,255,.95);line-height:1.2;letter-spacing:-.01em;text-transform:uppercase;border-left:4px solid #4ADE80;padding-left:16px;margin-bottom:24px}
 .hero h1{font-size:clamp(28px,4.2vw,46px);font-weight:800;line-height:1.15;color:#fff;margin-bottom:20px;letter-spacing:-.02em}
 .hero-sub{font-size:18px;color:rgba(255,255,255,.78);line-height:1.6;margin-bottom:32px;max-width:520px}
@@ -207,8 +207,8 @@ button,input,select,textarea{font:inherit}
 .case-meta span::before{content:'•';color:var(--secondary)}
 
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.review-card{background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--border);transition:box-shadow .25s}
-.review-card:hover{box-shadow:var(--shadow-sm)}
+.review-card{background:#fff;border-radius:var(--r);padding:24px;border:1px solid var(--border);transition:box-shadow .3s,transform .3s}
+.review-card:hover{box-shadow:var(--shadow-md);transform:translateY(-4px)}
 .review-header{display:flex;align-items:center;gap:14px;margin-bottom:14px}
 .review-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0}
 .review-name{font-weight:700;font-size:15px;margin-bottom:2px}
@@ -347,6 +347,34 @@ button,input,select,textarea{font:inherit}
   .hero-badges{flex-direction:column}
   .calc-card{padding:24px 20px}
 }
+
+/* ─── PREMIUM EFFECTS ───────────────────────── */
+@keyframes heroGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes shimmer{to{background-position:200% center}}
+@keyframes floatOrb{0%,100%{transform:translateY(0) scale(1);opacity:.5}50%{transform:translateY(-40px) scale(1.2);opacity:.8}}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.6)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+body{animation:pageIn .5s ease both}
+.hero::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(74,222,128,.1) 0%,transparent 65%);top:-100px;right:0;animation:floatOrb 8s ease-in-out infinite;pointer-events:none;z-index:0}
+.hero-label::before{animation:livePulse 2s ease-in-out infinite}
+.hero-photo-wrap{box-shadow:0 24px 64px rgba(0,0,0,.55),0 0 0 0 rgba(74,222,128,0);transition:box-shadow .4s}
+.hero-photo-wrap:hover{box-shadow:0 32px 80px rgba(0,0,0,.6),0 0 0 6px rgba(74,222,128,.25)}
+.stat-card{transition:box-shadow .3s,transform .3s}
+.stat-card:hover{box-shadow:0 10px 32px rgba(27,58,107,.18);transform:translateY(-4px)}
+.offering-card{transition:box-shadow .3s,transform .3s}
+.offering-card:hover{box-shadow:0 16px 48px rgba(27,58,107,.2);transform:translateY(-5px)}
+.expert-card{transition:box-shadow .3s,transform .3s}
+.expert-card:hover{box-shadow:0 20px 56px rgba(27,58,107,.2);transform:translateY(-5px)}
+.faq-item{transition:box-shadow .25s,transform .25s}
+.faq-item:hover{box-shadow:0 6px 24px rgba(27,58,107,.1);transform:translateY(-2px)}
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent);opacity:0;transition:opacity .3s}
+.btn-primary:hover::after{opacity:1}
+.btn-wa,.btn-tg{position:relative;overflow:hidden}
+.btn-wa::before,.btn-tg::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent);opacity:0;transition:opacity .3s}
+.btn-wa:hover::before,.btn-tg:hover::before{opacity:1}
+.section-title{position:relative}
+.hero-grid{will-change:transform}
 
 /* ─── MESSENGER BLOCK ────────────────────────── */
 .messenger-section{padding:64px 0;background:#fff;text-align:center}
@@ -1284,6 +1312,20 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
   });
 });
+
+// ─── PARALLAX HERO ───────────────────────────
+(function(){
+  const grid = document.querySelector('.hero-grid');
+  const hero = document.querySelector('.hero');
+  if(!grid || !hero) return;
+  window.addEventListener('scroll',function(){
+    const s = window.scrollY;
+    if(s < hero.offsetHeight * 1.2){
+      grid.style.transform = 'translateY(' + (s * 0.12) + 'px)';
+      grid.style.opacity = Math.max(0, 1 - s / (hero.offsetHeight * 0.85));
+    }
+  },{passive:true});
+})();
 </script>
 </body>
 </html>
