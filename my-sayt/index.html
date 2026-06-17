@@ -376,6 +376,28 @@ body{animation:pageIn .5s ease both}
 .section-title{position:relative}
 .hero-grid{will-change:transform}
 
+/* ─── BACK TO TOP ───────────────────────────── */
+.back-top{position:fixed;bottom:96px;right:20px;width:50px;height:50px;border-radius:50%;background:var(--primary);color:#fff;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(27,58,107,.45);opacity:0;transform:translateY(20px) scale(.8);transition:opacity .3s,transform .3s;z-index:150}
+.back-top.visible{opacity:1;transform:translateY(0) scale(1)}
+.back-top:hover{background:var(--primary-dark);transform:translateY(-3px) scale(1.08)!important;box-shadow:0 10px 32px rgba(27,58,107,.55)}
+
+/* ─── BURGER → X ────────────────────────────── */
+.burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.active span:nth-child(2){opacity:0;transform:scaleX(0)}
+.burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ─── FEEDBACK FORM ──────────────────────────── */
+.feedback-section{background:#fff}
+.feedback-wrap{max-width:600px;margin:0 auto;text-align:center}
+.feedback-form{display:flex;flex-direction:column;gap:14px;margin-top:32px;text-align:left}
+.feedback-input{width:100%;padding:15px 18px;border:1.5px solid var(--border);border-radius:12px;font-size:15px;color:var(--text);background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;font-family:inherit}
+.feedback-input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(27,58,107,.08)}
+textarea.feedback-input{resize:vertical;min-height:130px}
+.feedback-success{display:none;text-align:center;padding:40px 24px}
+.feedback-success.show{display:block;animation:successPop .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes successPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+.success-icon{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#DCFCE7,#BBF7D0);margin:0 auto 20px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(22,101,52,.2)}
+
 /* ─── MESSENGER BLOCK ────────────────────────── */
 .messenger-section{padding:64px 0;background:#fff;text-align:center}
 .messenger-title{font-size:clamp(22px,3vw,32px);font-weight:800;color:var(--text);margin-bottom:10px}
@@ -1076,6 +1098,32 @@ body{animation:pageIn .5s ease both}
   </div>
 </section>
 
+<!-- ═══ FEEDBACK ═════════════════════════════════ -->
+<section class="section feedback-section" id="feedback">
+  <div class="container">
+    <div class="feedback-wrap">
+      <div class="tag">Обратная связь</div>
+      <h2 class="section-title fade-up">Задайте вопрос напрямую</h2>
+      <p class="section-sub fade-up">Отвечу в течение одного часа</p>
+      <div id="feedbackFormWrap" class="fade-up">
+        <form class="feedback-form" onsubmit="submitFeedback(event)">
+          <input type="text" class="feedback-input" placeholder="Ваше имя" required>
+          <input type="text" class="feedback-input" placeholder="Телефон или email">
+          <textarea class="feedback-input" placeholder="Ваш вопрос или сообщение..." required></textarea>
+          <button type="submit" class="btn btn-primary btn-lg" style="align-self:flex-start">Отправить сообщение →</button>
+        </form>
+      </div>
+      <div class="feedback-success" id="feedbackSuccess">
+        <div class="success-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#166534" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 style="font-size:24px;font-weight:800;margin-bottom:10px">Сообщение отправлено!</h3>
+        <p style="color:var(--text-muted);font-size:16px">Отвечу вам в ближайшее время</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ LEGAL ══════════════════════════════════════ -->
 <section class="legal-section">
   <div class="container">
@@ -1135,6 +1183,11 @@ body{animation:pageIn .5s ease both}
     </div>
   </div>
 </footer>
+
+<!-- Кнопка наверх -->
+<button class="back-top" id="backTop" aria-label="Наверх">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <script>
 // ─── CALC STATE ──────────────────────────────────
@@ -1245,9 +1298,13 @@ function toggleFaq(btn){
 
 // ─── BURGER ──────────────────────────────────────
 document.getElementById('burger').addEventListener('click',function(){
+  this.classList.toggle('active');
   document.getElementById('mobileNav').classList.toggle('open');
 });
-function closeMenu(){ document.getElementById('mobileNav').classList.remove('open'); }
+function closeMenu(){
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('burger').classList.remove('active');
+}
 
 // ─── STICKY HEADER ───────────────────────────────
 window.addEventListener('scroll',function(){
@@ -1312,6 +1369,27 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth',block:'start'}); }
   });
 });
+
+// ─── BACK TO TOP ─────────────────────────────
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll',function(){
+  backTop.classList.toggle('visible', window.scrollY > 400);
+},{passive:true});
+backTop.addEventListener('click',function(){
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ─── FEEDBACK FORM ────────────────────────────
+function submitFeedback(e){
+  e.preventDefault();
+  const form = e.target;
+  form.style.cssText += 'opacity:0;transform:scale(.96);transition:opacity .25s,transform .25s';
+  setTimeout(function(){
+    document.getElementById('feedbackFormWrap').style.display = 'none';
+    const success = document.getElementById('feedbackSuccess');
+    success.classList.add('show');
+  }, 280);
+}
 
 // ─── PARALLAX HERO ───────────────────────────
 (function(){
