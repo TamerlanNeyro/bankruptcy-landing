@@ -1398,12 +1398,17 @@ function submitFeedback(e){
   }, 280);
 }
 
-// ─── PARALLAX HERO ───────────────────────────
+// ─── PARALLAX HERO (только десктоп) ──────────
 (function(){
   const grid = document.querySelector('.hero-grid');
   const hero = document.querySelector('.hero');
   if(!grid || !hero) return;
   window.addEventListener('scroll',function(){
+    if(window.innerWidth < 768){
+      grid.style.transform = '';
+      grid.style.opacity = '';
+      return;
+    }
     const s = window.scrollY;
     if(s < hero.offsetHeight * 1.2){
       grid.style.transform = 'translateY(' + (s * 0.12) + 'px)';
