@@ -347,6 +347,13 @@ button,input,select,textarea{font:inherit}
   .hero-badges{flex-direction:column}
   .calc-card{padding:24px 20px}
 }
+@media(max-width:768px){
+  .hero{animation:none!important}
+  .hero::after{display:none}
+  .hero-name-big span{animation:none!important;-webkit-text-fill-color:#4ADE80;background:none}
+  body{animation:none!important}
+  .hero-grid{will-change:auto}
+}
 
 /* ─── PREMIUM EFFECTS ───────────────────────── */
 @keyframes heroGradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
