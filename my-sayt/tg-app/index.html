@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Помощь при банкротстве</title>
+
+  <!-- Telegram Web App SDK — обязателен для работы в Telegram -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 0: СПЛЭШ
+       Показывается 1.5 сек при запуске, затем → Welcome
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen active" id="screen-splash">
+    <div class="splash-inner">
+      <div class="splash-logo">⚖️</div>
+      <div class="splash-name">Правовая помощь</div>
+      <div class="splash-sub">Банкротство физических лиц</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 1: WELCOME (доверие)
+       Цель — снять главный страх до начала квиза.
+       Главная кнопка (MainButton) → Квиз
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-welcome">
+    <div class="screen-body">
+      <div class="welcome-lawyer-card">
+        <span class="welcome-lawyer-avatar">👨‍⚖️</span>
+        <div class="welcome-lawyer-info">
+          <span class="welcome-lawyer-role">Адвокат по банкротству физических лиц</span>
+          <span class="welcome-lawyer-name">Гучигов Тимерлан Хасанович</span>
+        </div>
+      </div>
+
+      <div class="welcome-user-greeting" id="welcome-user-greeting">Добрый день! 👋</div>
+
+      <div class="welcome-icon">🤝</div>
+      <h1 class="screen-title">Долги —<br>это не приговор</h1>
+      <p class="screen-sub">
+        Каждый 12-й россиянин имеет просроченный кредит.<br>
+        Из этого есть законный выход.
+      </p>
+
+      <div class="welcome-features">
+        <div class="welcome-feature">📋 Диагностика за 2 минуты — подходит ли вам банкротство</div>
+        <div class="welcome-feature">⚖️ Обзор услуг и прозрачная стоимость</div>
+        <div class="welcome-feature">💬 Запись на бесплатную консультацию</div>
+      </div>
+      <div class="fact-cards">
+        <div class="fact-card">
+          <span class="fact-icon">🏠</span>
+          <span>Единственное жильё защищено законом — его не заберут при банкротстве</span>
+        </div>
+        <div class="fact-card">
+          <span class="fact-icon">⚖️</span>
+          <span>Банкротство физлиц — закон №127-ФЗ, действует с 2015 года. С тех пор процедуру прошли более миллиона человек.</span>
+        </div>
+      </div>
+      <!-- Баннер «продолжить квиз» — показывается, если есть незаконченный квиз -->
+      <div class="resume-banner hidden" id="resume-banner">
+        <div>У вас есть незаконченная диагностика</div>
+        <div class="resume-btns">
+          <button class="btn-text" id="btn-resume">Продолжить</button>
+          <button class="btn-text muted" id="btn-restart-quiz">Начать заново</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 2: ГЛАВНАЯ (Home)
+       Доступна через Tab Bar после первого прохождения квиза
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen has-tabbar" id="screen-home">
+    <div class="screen-body">
+      <div class="home-greeting" id="home-greeting">Добрый день! 👋</div>
+      <div class="home-sub">Разберёмся с долгами вместе</div>
+
+      <!-- Карточка адвоката -->
+      <div class="lawyer-chip">
+        <span class="lawyer-chip-avatar">👨‍⚖️</span>
+        <div class="lawyer-chip-info">
+          <span class="lawyer-chip-title">Адвокат по банкротству</span>
+          <span class="lawyer-chip-name">Гучигов Тимерлан Хасанович</span>
+        </div>
+      </div>
+
+      <!-- Hero-блок с призывом к диагностике -->
+      <div class="hero-block">
+        <p class="hero-text">Не знаете, что делать с долгами?</p>
+        <button class="btn-hero" id="btn-quiz-home">Пройти диагностику</button>
+      </div>
+
+      <!-- Быстрые действия -->
+      <div class="action-list">
+        <button class="action-card" data-goto="quiz">
+          <span class="action-icon">📋</span>
+          <div class="action-body">
+            <span class="action-title">Диагностика</span>
+            <span class="action-sub">Узнайте за 2 минуты, подходит ли вам банкротство</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+        <button class="action-card" data-goto="services">
+          <span class="action-icon">👨‍⚖️</span>
+          <div class="action-body">
+            <span class="action-title">Услуги</span>
+            <span class="action-sub">Что входит в сопровождение и сколько стоит</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+        <button class="action-card" data-goto="form">
+          <span class="action-icon">💬</span>
+          <div class="action-body">
+            <span class="action-title">Записаться</span>
+            <span class="action-sub">Бесплатная консультация — без давления</span>
+          </div>
+          <span class="chevron">›</span>
+        </button>
+      </div>
+
+      <button class="btn-share-friend" id="btn-share-friend">📤 Поделиться с другом</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 3: КВИЗ (5 шагов в одном экране)
+       Контент рендерится динамически через JS
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-quiz">
+    <!-- Прогресс-бар — фиксирован вверху -->
+    <div class="quiz-topbar">
+      <div class="quiz-step-label">Шаг <span id="quiz-step-num">1</span> из 5</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="quiz-fill" style="width:20%"></div>
+      </div>
+    </div>
+    <!-- Тело шага — заменяется при каждом шаге -->
+    <div class="screen-body" id="quiz-step-body"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 4: РЕЗУЛЬТАТ КВИЗА
+       Персонализированный вывод на основе ответов
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-result">
+    <div class="screen-body centered">
+      <div class="result-icon" id="result-icon">✅</div>
+      <h2 class="screen-title" id="result-title"></h2>
+      <p class="screen-sub" id="result-subtitle"></p>
+      <div class="result-benefits" id="result-benefits"></div>
+      <div class="disclaimer-card" id="result-disclaimer"></div>
+      <button class="btn-link-retake" id="btn-retake">← Пройти заново</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 5: КАТАЛОГ УСЛУГ
+       Список из 3 карточек, тап → карточка услуги
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen has-tabbar" id="screen-services">
+    <div class="screen-header">
+      <h2 class="screen-title">Наши услуги</h2>
+    </div>
+    <div class="service-list" id="service-list">
+      <!-- Карточки рендерятся JS из APP_DATA.services -->
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 6: КАРТОЧКА УСЛУГИ (полная)
+       Рендерится JS при выборе услуги в каталоге
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-service-card">
+    <div class="screen-body" id="service-card-body">
+      <!-- Контент рендерится JS -->
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 7: ФОРМА ЗАЯВКИ
+       Имя предзаполняется из Telegram,
+       телефон — через requestContact() или вручную
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-form">
+    <div class="screen-header">
+      <h2 class="screen-title">Запись на консультацию</h2>
+      <p class="screen-sub-sm">Бесплатно · Без давления · Звонок в удобное время</p>
+    </div>
+    <div class="screen-body">
+
+      <!-- Поле имени -->
+      <div class="form-group">
+        <label class="form-label" for="inp-name">Ваше имя</label>
+        <input class="form-input" type="text" id="inp-name"
+               autocomplete="given-name" placeholder="Введите имя">
+      </div>
+
+      <!-- Телефон: сначала кнопка, потом fallback-поле -->
+      <div class="form-group">
+        <label class="form-label">Телефон</label>
+        <button id="btn-share" type="button">
+          📱 Поделиться номером из Telegram
+        </button>
+        <div id="phone-fallback" class="hidden" style="margin-top:10px;">
+          <input class="form-input" type="tel" id="inp-phone"
+                 inputmode="tel" placeholder="+7 (___) ___-__-__"
+                 autocomplete="tel">
+          <div class="form-error" id="phone-error">Проверьте, пожалуйста, номер телефона</div>
+        </div>
+      </div>
+
+      <!-- Выбор времени -->
+      <div class="form-group">
+        <label class="form-label">Удобное время для звонка</label>
+        <div class="time-pills">
+          <button class="pill" data-time="morning" type="button">Утром</button>
+          <button class="pill" data-time="afternoon" type="button">Днём</button>
+          <button class="pill" data-time="evening" type="button">Вечером</button>
+        </div>
+      </div>
+
+      <!-- Согласие на обработку персональных данных (обязательно — 152-ФЗ) -->
+      <div class="form-group">
+        <label class="consent-row">
+          <input type="checkbox" id="inp-consent">
+          <span>
+            Согласен на
+            <a href="#" id="link-privacy">обработку персональных данных</a>
+          </span>
+        </label>
+      </div>
+
+      <div class="safety-note">🔒 Данные не передаются третьим лицам</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 8: УСПЕШНАЯ ОТПРАВКА
+       Показывается после отправки заявки.
+       BackButton скрыта — нельзя вернуться и отправить повторно.
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-success">
+    <div class="screen-body centered">
+      <div class="success-icon">✅</div>
+      <h2 class="screen-title">Заявка принята!</h2>
+      <p class="screen-sub">Мы свяжемся с вами в течение 2 рабочих часов</p>
+      <div class="next-steps">
+        <div class="next-step">📱 Напишем в Telegram для подтверждения</div>
+        <div class="next-step">📞 Юрист позвонит в удобное для вас время</div>
+        <div class="next-step">💬 Консультация бесплатная, без давления</div>
+      </div>
+      <button class="btn btn-secondary" id="btn-to-home" style="margin-top:8px;">
+        Вернуться на главную
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 9: О НАС
+       Карточка юриста, статистика, реквизиты, дисклеймер
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen has-tabbar" id="screen-about">
+    <div class="screen-body" id="about-body">
+      <!-- Контент рендерится JS из APP_DATA.lawyer и APP_DATA.company -->
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       ЭКРАН 10: ОШИБКА
+       Показывается при сетевых проблемах
+  ════════════════════════════════════════════════════════ -->
+  <div class="screen" id="screen-error">
+    <div class="screen-body centered">
+      <div class="error-icon">😕</div>
+      <h2 class="screen-title">Что-то пошло не так</h2>
+      <p class="screen-sub">Проверьте соединение и попробуйте ещё раз</p>
+      <button class="btn btn-accent" id="btn-retry">Попробовать снова</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       TAB BAR (нижняя навигация)
+       Показывается только на экранах: home / services / about
+  ════════════════════════════════════════════════════════ -->
+  <nav id="tab-bar" class="hidden">
+    <button class="tab-btn active" data-tab="home">
+      <span class="tab-icon">🏠</span>
+      <span class="tab-label">Главная</span>
+    </button>
+    <button class="tab-btn" data-tab="quiz">
+      <span class="tab-icon">📋</span>
+      <span class="tab-label">Диагностика</span>
+    </button>
+    <button class="tab-btn" data-tab="services">
+      <span class="tab-icon">👨‍⚖️</span>
+      <span class="tab-label">Услуги</span>
+    </button>
+    <button class="tab-btn" data-tab="about">
+      <span class="tab-icon">👤</span>
+      <span class="tab-label">О нас</span>
+    </button>
+  </nav>
+
+</div><!-- /#app -->
+
+<!-- ══════════════════════════════════════════════════════
+     ОФФЕР-МОДАЛКА (показывается один раз при первом входе)
+════════════════════════════════════════════════════════ -->
+<div id="offer-overlay" class="offer-overlay hidden">
+  <div class="offer-card">
+    <div class="offer-emoji">🎁</div>
+    <h2 class="offer-title">Скидка 15% на первую запись</h2>
+    <p class="offer-sub">Подпишитесь на бота — получите промокод в личное сообщение</p>
+    <ul class="offer-bullets">
+      <li>Напомним о записи за день</li>
+      <li>Первыми узнаёте о свободных окошках</li>
+      <li>Эксклюзивные акции для подписчиков</li>
+    </ul>
+    <a id="offer-cta" class="btn-offer-cta" href="#" target="_blank">Получить скидку 15%</a>
+    <button id="offer-skip" class="btn-offer-skip">Пропустить</button>
+  </div>
+</div>
+
+<!-- Все данные (контент) — data.js -->
+<script src="data.js"></script>
+<!-- Логика приложения — app.js -->
+<script src="app.js"></script>
+
+</body>
+</html>

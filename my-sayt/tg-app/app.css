@@ -1,0 +1,844 @@
+/* app.css — Все стили Telegram Mini App
+   Банкротство физических лиц
+   Комментарии на русском, стили — нативный Telegram-стиль */
+
+/* ─── CSS-ПЕРЕМЕННЫЕ ТГ-ТЕМЫ (с фолбеками для браузера) ────────── */
+:root {
+  /* Цвета берутся из темы Telegram через JS; здесь — фолбеки для тестирования */
+  --bg:       var(--tg-theme-bg-color,            #ffffff);
+  --bg2:      var(--tg-theme-secondary-bg-color,  #f1f3f4);
+  --text:     var(--tg-theme-text-color,           #000000);
+  --hint:     var(--tg-theme-hint-color,           #707579);
+  --link:     var(--tg-theme-link-color,           #2AABEE);
+  --btn-bg:   var(--tg-theme-button-color,         #2AABEE);
+  --btn-text: var(--tg-theme-button-text-color,    #ffffff);
+
+  /* Фиксированные цвета — не из темы, для успеха и предупреждений */
+  --success:  #34C759;
+  --warning:  #FF9500;
+  --error:    #FF3B30;
+  --border:   rgba(0, 0, 0, 0.08);
+
+  /* Геометрия */
+  --r:        12px;   /* скругление карточек */
+  --r-sm:     8px;
+  --r-pill:   20px;
+  --gap:      16px;   /* базовый отступ */
+  --tab-h:    56px;   /* высота Tab Bar */
+  --btn-h:    50px;   /* высота кнопки */
+}
+
+/* Тёмная тема — применяется классом body.dark (устанавливает JS) */
+body.dark {
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── УТИЛИТЫ ────────────────────────────────────────────────── */
+.hidden { display: none !important; }
+
+/* ─── СБРОС ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  height: 100%;
+  /* Используем стабильную высоту Telegram вместо 100vh */
+  height: var(--tg-viewport-stable-height, 100%);
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+               'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--bg);
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button  { cursor: pointer; border: none; background: none; font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+input   { font: inherit; color: inherit; }
+a       { color: var(--link); text-decoration: none; }
+ul, ol  { list-style: none; }
+details summary { cursor: pointer; list-style: none; }
+details summary::-webkit-details-marker { display: none; }
+
+/* ─── КОНТЕЙНЕР ПРИЛОЖЕНИЯ ──────────────────────────────────── */
+#app {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ─── ЭКРАНЫ ─────────────────────────────────────────────────── */
+.screen {
+  position: absolute;
+  inset: 0;            /* top:0 right:0 bottom:0 left:0 */
+  background: var(--bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  /* Скрыт: прозрачен и смещён вправо */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(32px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  /* Запас снизу — всегда, чтобы не перекрывал Tab Bar или MainButton */
+  padding-bottom: 80px;
+}
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+}
+/* Уходящий экран — скользит влево */
+.screen.slide-out {
+  opacity: 0;
+  transform: translateX(-24px);
+  pointer-events: none;
+}
+/* Экраны с Tab Bar — добавляем отступ */
+.screen.has-tabbar {
+  padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px) + 8px);
+}
+
+/* Универсальное тело экрана */
+.screen-body { padding: var(--gap); }
+/* Центрированный вариант (успех, ошибка) */
+.screen-body.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 32px var(--gap);
+  min-height: 70vh;
+  justify-content: center;
+}
+/* Липкая шапка экрана */
+.screen-header {
+  padding: 18px var(--gap) 12px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 5;
+}
+
+/* ─── ТИПОГРАФИКА ──────────────────────────────────────────── */
+.screen-title { font-size: 22px; font-weight: 700; line-height: 1.22; margin-bottom: 8px; }
+.screen-sub   { font-size: 15px; color: var(--hint); line-height: 1.5; margin-bottom: 20px; }
+.screen-sub-sm { font-size: 13px; color: var(--hint); margin-top: 4px; }
+.section-label {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.07em; color: var(--hint);
+  margin-bottom: 10px; margin-top: 20px;
+}
+
+/* ─── СПЛЭШ ──────────────────────────────────────────────── */
+#screen-splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.splash-inner {
+  text-align: center;
+  animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.splash-logo   { font-size: 64px; margin-bottom: 14px; line-height: 1; }
+.splash-name   { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.splash-sub    { font-size: 14px; color: var(--hint); }
+
+/* ─── WELCOME ─────────────────────────────────────────────── */
+#screen-welcome .screen-body { padding-top: 24px; }
+.welcome-icon  { font-size: 52px; margin-bottom: 22px; }
+
+.welcome-lawyer-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 28px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  border-left: 4px solid var(--accent);
+}
+.welcome-lawyer-avatar { font-size: 32px; line-height: 1; flex-shrink: 0; }
+.welcome-lawyer-info   { display: flex; flex-direction: column; gap: 3px; }
+.welcome-lawyer-role   { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.5px; }
+.welcome-lawyer-name   { font-size: 16px; font-weight: 700; color: var(--text); }
+.fact-cards    { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.fact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--bg2);
+  border-radius: var(--r);
+  padding: 14px var(--gap);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.fact-icon { font-size: 24px; flex-shrink: 0; }
+
+/* Баннер «продолжить квиз» */
+.resume-banner {
+  margin-top: 20px;
+  background: rgba(42, 171, 238, 0.1);
+  border-radius: var(--r);
+  padding: 14px var(--gap);
+  font-size: 14px;
+  border: 1px solid rgba(42, 171, 238, 0.25);
+}
+.resume-btns   { display: flex; gap: 16px; margin-top: 10px; }
+.btn-text      { font-size: 14px; font-weight: 600; color: var(--link); }
+.btn-text.muted { color: var(--hint); }
+
+/* ─── ОФФЕР-МОДАЛКА ─────────────────────────────────────── */
+.offer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: offer-fade-in 0.3s ease;
+}
+.offer-overlay.hidden { display: none !important; }
+
+@keyframes offer-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes offer-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+.offer-card {
+  background: var(--bg);
+  border-radius: 24px;
+  padding: 24px 20px 20px;
+  width: 100%;
+  max-width: 380px;
+  max-height: 90vh;
+  overflow-y: auto;
+  text-align: center;
+  animation: offer-slide-up 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+}
+@keyframes offer-slide-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.offer-emoji  { font-size: 48px; line-height: 1; margin-bottom: 12px; }
+.offer-title  { font-size: 20px; font-weight: 700; line-height: 1.25; margin-bottom: 8px; color: var(--text); }
+.offer-sub    { font-size: 13px; color: var(--hint); line-height: 1.5; margin-bottom: 14px; }
+
+.offer-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+.offer-bullets li {
+  font-size: 14px;
+  color: var(--text);
+  padding: 10px 14px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.offer-bullets li::before {
+  content: '✓';
+  font-weight: 700;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.btn-offer-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  background: #2AABEE;
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 14px;
+  text-decoration: none !important;
+  margin-bottom: 12px;
+  transition: opacity 0.15s;
+  box-sizing: border-box;
+}
+.btn-offer-cta:active { opacity: 0.85; }
+
+.btn-offer-skip {
+  background: none;
+  border: none;
+  color: var(--hint);
+  font-size: 14px;
+  padding: 8px 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* ─── ГЛАВНАЯ (HOME) ─────────────────────────────────────── */
+.home-greeting { font-size: 18px; font-weight: 600; }
+.home-sub      { font-size: 13px; color: var(--hint); margin-top: 3px; margin-bottom: 14px; }
+
+.lawyer-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.lawyer-chip-avatar { font-size: 28px; line-height: 1; flex-shrink: 0; }
+.lawyer-chip-info   { display: flex; flex-direction: column; gap: 2px; }
+.lawyer-chip-title  { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.4px; }
+.lawyer-chip-name   { font-size: 15px; font-weight: 600; color: var(--text); }
+
+.hero-block {
+  background: var(--btn-bg);
+  border-radius: var(--r);
+  padding: 20px var(--gap);
+  margin-bottom: 18px;
+}
+.hero-text {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--btn-text);
+  margin-bottom: 14px;
+}
+
+.action-list { display: flex; flex-direction: column; gap: 8px; }
+.action-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg2);
+  border-radius: var(--r);
+  padding: 14px var(--gap);
+  width: 100%;
+  text-align: left;
+  min-height: 64px;
+  transition: opacity 0.12s;
+}
+.action-card:active { opacity: 0.65; }
+.action-icon  { font-size: 28px; flex-shrink: 0; }
+.action-body  { flex: 1; min-width: 0; }
+.action-title { display: block; font-size: 15px; font-weight: 600; }
+.action-sub   { display: block; font-size: 12px; color: var(--hint); margin-top: 2px; }
+.chevron      { font-size: 20px; color: var(--hint); flex-shrink: 0; }
+
+/* ─── КВИЗ ──────────────────────────────────────────────── */
+.quiz-topbar {
+  padding: 12px var(--gap) 10px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 5;
+  border-bottom: 1px solid var(--border);
+}
+.quiz-step-label { font-size: 12px; color: var(--hint); margin-bottom: 8px; }
+.progress-bar {
+  height: 4px;
+  background: var(--bg2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--btn-bg);
+  border-radius: 2px;
+  transition: width 0.35s ease;
+}
+
+/* Тело шага квиза — анимируется при смене шага.
+   Класс .quiz-step-inner создаётся заново через innerHTML → анимация сбрасывается. */
+.quiz-step-inner { animation: quiz-step-in 0.2s ease; }
+@keyframes quiz-step-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.quiz-question {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 18px;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; }
+.quiz-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--bg2);
+  border-radius: var(--r);
+  padding: 0 var(--gap);
+  min-height: 52px;
+  width: 100%;
+  text-align: left;
+  font-size: 15px;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, background 0.15s;
+  line-height: 1.35;
+}
+.quiz-option:active { opacity: 0.75; }
+.quiz-option.selected {
+  border-color: var(--btn-bg);
+  background: rgba(42, 171, 238, 0.08);
+}
+.quiz-check {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--hint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: transparent;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.quiz-option.selected .quiz-check {
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+  color: #fff;
+}
+
+/* Подсказка под вариантом */
+.quiz-hint {
+  margin-top: 10px;
+  border-radius: var(--r-sm);
+  padding: 11px var(--gap);
+  font-size: 13px;
+  line-height: 1.5;
+  animation: fade-down 0.2s ease;
+}
+.quiz-hint.success { background: rgba(52, 199, 89,  0.13); }
+.quiz-hint.warning { background: rgba(255, 149, 0, 0.12); }
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── РЕЗУЛЬТАТ КВИЗА ────────────────────────────────────── */
+.result-icon  { font-size: 56px; margin-bottom: 16px; }
+.result-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 16px;
+}
+.result-benefit { font-size: 14px; line-height: 1.5; }
+.btn-link-retake {
+  font-size: 14px;
+  color: var(--hint);
+  padding: 10px 0;
+  margin-top: 6px;
+}
+
+/* ─── КАРТОЧКА-ДИСКЛЕЙМЕР ───────────────────────────────── */
+.disclaimer-card {
+  background: var(--bg2);
+  border-radius: var(--r-sm);
+  padding: 12px var(--gap);
+  font-size: 12px;
+  color: var(--hint);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  text-align: left;
+  width: 100%;
+}
+
+/* ─── КАТАЛОГ УСЛУГ ──────────────────────────────────────── */
+.service-list { display: flex; flex-direction: column; gap: 10px; padding: var(--gap); }
+
+.service-card-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg2);
+  border-radius: var(--r);
+  padding: 16px var(--gap);
+  width: 100%;
+  text-align: left;
+  transition: opacity 0.12s;
+  min-height: 96px;
+}
+.service-card-btn:active { opacity: 0.65; }
+.svc-icon  { font-size: 34px; flex-shrink: 0; margin-top: 2px; }
+.svc-body  { flex: 1; min-width: 0; }
+.svc-name  { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.svc-desc  { font-size: 13px; color: var(--hint); line-height: 1.4; margin-bottom: 6px; }
+.svc-tag   { font-size: 13px; font-weight: 600; color: var(--btn-bg); }
+.svc-for   { font-size: 12px; color: var(--link); margin-top: 4px; display: block; }
+
+/* ─── КАРТОЧКА УСЛУГИ (полная) ──────────────────────────── */
+.svc-full-icon { font-size: 48px; margin-bottom: 12px; }
+.tag-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.tag-pill {
+  background: rgba(42, 171, 238, 0.12);
+  color: var(--btn-bg);
+  border-radius: var(--r-pill);
+  padding: 5px 13px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.checklist { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.checklist li::before { content: '✅'; font-size: 16px; flex-shrink: 0; }
+.note-card {
+  background: rgba(42, 171, 238, 0.08);
+  border-radius: var(--r-sm);
+  padding: 12px var(--gap);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+/* ─── ФОРМА ЗАЯВКИ ───────────────────────────────────────── */
+.form-group   { margin-bottom: 20px; }
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--hint);
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;
+  height: var(--btn-h);
+  background: var(--bg2);
+  border: 2px solid transparent;
+  border-radius: var(--r);
+  padding: 0 var(--gap);
+  font-size: 16px;   /* 16px — не масштабирует экран на iOS */
+  outline: none;
+  transition: border-color 0.2s;
+  color: var(--text);
+}
+.form-input:focus       { border-color: var(--btn-bg); }
+.form-input.has-error   { border-color: var(--error); }
+
+/* Кнопка «поделиться номером» */
+#btn-share {
+  width: 100%;
+  height: var(--btn-h);
+  background: var(--bg2);
+  border-radius: var(--r);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  padding: 0 var(--gap);
+  transition: opacity 0.12s;
+}
+#btn-share:active { opacity: 0.7; }
+#btn-share:disabled { opacity: 0.55; cursor: default; }
+
+/* Пилюли выбора времени */
+.time-pills { display: flex; gap: 8px; }
+.pill {
+  flex: 1;
+  height: 40px;
+  border-radius: var(--r-pill);
+  background: var(--bg2);
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid transparent;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.pill.selected {
+  border-color: var(--btn-bg);
+  background: rgba(42, 171, 238, 0.1);
+  color: var(--btn-bg);
+}
+
+/* Чекбокс согласия */
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.consent-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--btn-bg);
+}
+.safety-note { font-size: 12px; color: var(--hint); text-align: center; margin-top: 10px; }
+.form-error  { font-size: 13px; color: var(--error); margin-top: 6px; display: none; }
+.form-error.show { display: block; }
+
+/* ─── ЭКРАН УСПЕХА ───────────────────────────────────────── */
+.success-icon { font-size: 64px; margin-bottom: 18px; animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.next-steps   { display: flex; flex-direction: column; gap: 10px; text-align: left; width: 100%; margin: 22px 0 28px; }
+.next-step    { font-size: 14px; line-height: 1.5; }
+
+/* ─── О НАС ─────────────────────────────────────────────── */
+.lawyer-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg2);
+  border-radius: var(--r);
+  padding: 16px var(--gap);
+  margin-bottom: 20px;
+}
+.lawyer-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: var(--bg);
+  font-size: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.lawyer-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.lawyer-name  { display: block; font-size: 17px; font-weight: 600; }
+.lawyer-title { display: block; font-size: 13px; color: var(--hint); margin-top: 3px; }
+.lawyer-spec  { display: block; font-size: 13px; color: var(--link); margin-top: 4px; }
+
+.stats-row { display: flex; gap: 10px; margin-bottom: 6px; }
+.stat-box {
+  flex: 1;
+  background: var(--bg2);
+  border-radius: var(--r-sm);
+  padding: 14px 10px;
+  text-align: center;
+}
+.stat-val  { display: block; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.stat-lbl  { display: block; font-size: 11px; color: var(--hint); line-height: 1.3; }
+.stat-note { font-size: 11px; color: var(--hint); margin-bottom: 20px; }
+
+/* Аккордеон реквизитов */
+.accordion {
+  background: var(--bg2);
+  border-radius: var(--r);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.accordion summary {
+  padding: 15px var(--gap);
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.accordion summary::after { content: '›'; font-size: 22px; color: var(--hint); transition: transform 0.2s; }
+.accordion[open] summary::after { transform: rotate(90deg); }
+.accordion-body {
+  padding: 0 var(--gap) 16px;
+  font-size: 14px;
+  color: var(--hint);
+  line-height: 1.7;
+}
+
+.about-links { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+.about-link {
+  display: block;
+  padding: 14px var(--gap);
+  background: var(--bg2);
+  border-radius: var(--r);
+  font-size: 15px;
+  color: var(--link);
+}
+
+.legal-warn {
+  background: rgba(255, 149, 0, 0.1);
+  border-radius: var(--r-sm);
+  padding: 12px var(--gap);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+/* ─── ЭКРАН ОШИБКИ ───────────────────────────────────────── */
+.error-icon { font-size: 54px; margin-bottom: 16px; }
+
+/* ─── КНОПКИ ─────────────────────────────────────────────── */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--btn-h);
+  border-radius: var(--r);
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  transition: opacity 0.12s;
+}
+.btn:active  { opacity: 0.75; }
+.btn:disabled { opacity: 0.45; cursor: default; pointer-events: none; }
+
+/* Белая кнопка внутри синего hero-блока */
+.btn-hero {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--btn-text);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  min-height: var(--btn-h);
+  border-radius: var(--r);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.12s;
+}
+.btn-hero:active { opacity: 0.8; }
+
+.btn-secondary {
+  background: var(--bg2);
+  color: var(--text);
+}
+.btn-accent {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+}
+
+/* ─── TAB BAR ─────────────────────────────────────────────── */
+#tab-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 100;
+}
+#tab-bar.hidden { display: none; }
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: var(--tab-h);
+  color: var(--hint);
+  gap: 3px;
+  transition: color 0.15s;
+}
+.tab-btn.active { color: var(--btn-bg); }
+.tab-icon  { font-size: 22px; line-height: 1; }
+.tab-label { font-size: 10px; font-weight: 500; }
+
+/* ─── MOCK-КНОПКИ (только для тестирования в браузере) ──── */
+/* Отображаются только когда window.Telegram.WebApp недоступен */
+#mock-main-btn {
+  position: fixed;
+  bottom: 16px; left: 16px; right: 16px;
+  height: 52px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: none;
+  border-radius: var(--r);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 200;
+  display: none;
+  transition: opacity 0.15s;
+}
+#mock-main-btn.disabled { opacity: 0.45; }
+#mock-back-btn {
+  position: fixed;
+  top: 10px; left: 10px;
+  padding: 8px 14px;
+  background: var(--bg2);
+  border: none;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 200;
+  display: none;
+}
+
+/* ─── АНИМАЦИИ ───────────────────────────────────────────── */
+@keyframes pop-in {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+/* ─── WELCOME: ПРИВЕТСТВИЕ + ФИЧИ ───────────────────────── */
+.welcome-user-greeting {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  margin: 4px 0 16px;
+}
+
+.welcome-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0 4px;
+}
+
+.welcome-feature {
+  background: var(--bg2);
+  border-radius: var(--r);
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ─── HOME: КНОПКА «ПОДЕЛИТЬСЯ» ─────────────────────────── */
+.btn-share-friend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 46px;
+  background: transparent;
+  border: 1.5px solid #2AABEE;
+  color: #2AABEE;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--r);
+  margin-top: 16px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  box-sizing: border-box;
+}
+.btn-share-friend:active { opacity: 0.65; }
