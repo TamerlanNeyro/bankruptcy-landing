@@ -23,7 +23,6 @@ module.exports = async function handler(req, res) {
   const name = from?.first_name ? `, ${from.first_name}` : '';
 
   if (text && (text === '/start' || text.startsWith('/start '))) {
-    // Ответ прямо в теле — Telegram исполняет его без исходящего запроса
     return res.status(200).json({
       method:     'sendMessage',
       chat_id:    chat.id,
@@ -31,16 +30,15 @@ module.exports = async function handler(req, res) {
       text:
         `Здравствуйте${name}! 👋\n\n` +
         `Меня зовут <b>Гучигов Тимерлан Хасанович</b> — адвокат по банкротству физических лиц.\n\n` +
-        `Здесь вы можете:\n` +
-        `📋 Пройти диагностику — 5 вопросов, честный результат\n` +
-        `⚖️ Узнать об услугах и стоимости\n` +
-        `💬 Записаться на бесплатную консультацию\n\n` +
         `Нажмите кнопку ниже 👇`,
+      // Постоянная клавиатура — всегда видна внизу чата
       reply_markup: {
-        inline_keyboard: [
-          [{ text: '🚀 Открыть приложение',          web_app: { url: APP_URL } }],
-          [{ text: '📋 Записаться на консультацию',  web_app: { url: APP_URL } }],
+        keyboard: [
+          [{ text: '🚀 Открыть приложение',         web_app: { url: APP_URL } }],
+          [{ text: '📋 Записаться на консультацию', web_app: { url: APP_URL } }],
         ],
+        resize_keyboard:  true,
+        persistent:       true,
       },
     });
   }
