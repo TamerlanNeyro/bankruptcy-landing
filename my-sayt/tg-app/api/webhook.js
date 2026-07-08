@@ -18,6 +18,12 @@ async function send(chatId, text, replyMarkup) {
   });
 }
 
+const openAppButton = {
+  inline_keyboard: [[
+    { text: '🚀 Открыть приложение', web_app: { url: APP_URL } },
+  ]],
+};
+
 const consultButton = {
   inline_keyboard: [[
     { text: '📋 Записаться на консультацию', web_app: { url: APP_URL } },
@@ -43,7 +49,7 @@ export default async function handler(req, res) {
       `⚖️ Узнать об услугах и стоимости\n` +
       `💬 Записаться на бесплатную консультацию\n\n` +
       `Нажмите кнопку ниже 👇`,
-      consultButton,
+      openAppButton,
     );
   } else if (text === '/help') {
     await send(chat.id,
