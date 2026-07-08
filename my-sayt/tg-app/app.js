@@ -762,7 +762,7 @@ const screens = {
       document.getElementById('about-body').innerHTML = `
         <!-- Карточка юриста -->
         <div class="lawyer-card">
-          <div class="lawyer-avatar">👨‍⚖️</div>
+          <div class="lawyer-avatar"><img src="lawyer.jpg" alt="${l.name}"></div>
           <div>
             <span class="lawyer-name">${l.name}</span>
             <span class="lawyer-title">${l.title}</span>

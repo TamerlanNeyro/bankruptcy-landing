@@ -166,7 +166,13 @@ details summary::-webkit-details-marker { display: none; }
   box-shadow: 0 1px 6px rgba(0,0,0,0.07);
   border-left: 4px solid var(--accent);
 }
-.welcome-lawyer-avatar { font-size: 32px; line-height: 1; flex-shrink: 0; }
+.welcome-lawyer-avatar {
+  width: 52px; height: 70px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: top;
+  flex-shrink: 0;
+}
 .welcome-lawyer-info   { display: flex; flex-direction: column; gap: 3px; }
 .welcome-lawyer-role   { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.5px; }
 .welcome-lawyer-name   { font-size: 16px; font-weight: 700; color: var(--text); }
@@ -302,7 +308,13 @@ details summary::-webkit-details-marker { display: none; }
   margin-bottom: 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
-.lawyer-chip-avatar { font-size: 28px; line-height: 1; flex-shrink: 0; }
+.lawyer-chip-avatar {
+  width: 44px; height: 59px;
+  border-radius: 8px;
+  object-fit: cover;
+  object-position: top;
+  flex-shrink: 0;
+}
 .lawyer-chip-info   { display: flex; flex-direction: column; gap: 2px; }
 .lawyer-chip-title  { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.4px; }
 .lawyer-chip-name   { font-size: 15px; font-weight: 600; color: var(--text); }
