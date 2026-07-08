@@ -258,19 +258,23 @@ const screens = {
       Btn.main.hide();
       Btn.back.hide();
 
-      // Через 1.5 сек переходим на Welcome
       setTimeout(() => {
-        // Проверяем незаконченный квиз
-        Store.get('quiz_answers', (err, val) => {
-          if (val) {
-            try {
-              const saved = JSON.parse(val);
-              if (Object.keys(saved).length > 0) {
-                state.quizAnswers = saved;
-              }
-            } catch(e) {}
+        // Если квиз уже пройден — открываем Home с таббаром
+        Store.get('quiz_done', (err, done) => {
+          if (done) {
+            Router.go('home', { replace: true });
+            return;
           }
-          Router.go('welcome', { replace: true });
+          // Иначе — Welcome, восстанавливаем незаконченный квиз если есть
+          Store.get('quiz_answers', (err2, val) => {
+            if (val) {
+              try {
+                const saved = JSON.parse(val);
+                if (Object.keys(saved).length > 0) state.quizAnswers = saved;
+              } catch(e) {}
+            }
+            Router.go('welcome', { replace: true });
+          });
         });
       }, 1500);
     },
