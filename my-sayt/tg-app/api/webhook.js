@@ -37,9 +37,10 @@ module.exports = async function handler(req, res) {
         `💬 Записаться на бесплатную консультацию\n\n` +
         `Нажмите кнопку ниже 👇`,
       reply_markup: {
-        inline_keyboard: [[
-          { text: '🚀 Открыть приложение', web_app: { url: APP_URL } },
-        ]],
+        inline_keyboard: [
+          [{ text: '🚀 Открыть приложение',          web_app: { url: APP_URL } }],
+          [{ text: '📋 Записаться на консультацию',  web_app: { url: APP_URL } }],
+        ],
       },
     });
   }
