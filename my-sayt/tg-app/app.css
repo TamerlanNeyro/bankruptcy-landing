@@ -216,8 +216,9 @@ body.dark .splash-icon { stroke: var(--gold); }
   gap: 16px;
   /* Градиент даёт объём, убирает плоскость */
   background: linear-gradient(145deg, #091E33 0%, #0C243D 55%, #0E2B48 100%);
-  padding: 28px var(--gap) 24px;
+  padding: 20px var(--gap) 20px;
   margin: 0 calc(-1 * var(--gap)) 28px;
+  align-items: flex-start;
   border-radius: 0 0 24px 24px;
   position: relative;
   overflow: hidden;
@@ -243,13 +244,13 @@ body.dark .splash-icon { stroke: var(--gold); }
   pointer-events: none;
 }
 
-/* Фото — крупный портрет с золотой рамкой и глубокой тенью */
+/* Фото — квадрат 120×120px, золотая рамка */
 .welcome-lawyer-avatar {
-  width: 72px;
-  height: 96px;
-  border-radius: 12px;
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
   flex-shrink: 0;
   border: 2.5px solid var(--gold);
   box-shadow:
@@ -263,6 +264,7 @@ body.dark .splash-icon { stroke: var(--gold); }
   gap: 0;
   flex: 1;
   min-width: 0;
+  padding-top: 6px;
 }
 
 /* Специализация — мелкий капс, приглушённый золотой */
