@@ -363,6 +363,52 @@
   </div>
 
   <!-- ══════════════════════════════════════════════════════════
+       ЭКРАН 11: КОНТАКТЫ
+  ════════════════════════════════════════════════════════════ -->
+  <div class="screen has-tabbar" id="screen-contacts">
+    <div class="screen-header">
+      <h2 class="screen-title">Контакты</h2>
+    </div>
+    <div class="screen-body">
+
+      <p class="section-label">Телефон</p>
+      <div class="contact-list">
+        <div class="contact-item">
+          <div class="icon-circle icon-circle-navy">
+            <svg class="icon"><use href="#icon-phone"/></svg>
+          </div>
+          <div class="contact-info">
+            <span class="contact-number">+7 999-402-55-52</span>
+          </div>
+          <button class="contact-call-btn" data-tel="+79994025552">Позвонить</button>
+        </div>
+        <div class="contact-item">
+          <div class="icon-circle icon-circle-navy">
+            <svg class="icon"><use href="#icon-phone"/></svg>
+          </div>
+          <div class="contact-info">
+            <span class="contact-number">+7 969-012-58-89</span>
+          </div>
+          <button class="contact-call-btn" data-tel="+79690125889">Позвонить</button>
+        </div>
+      </div>
+
+      <p class="section-label">Telegram</p>
+      <div class="contact-list">
+        <div class="contact-item">
+          <div class="icon-circle icon-circle-blue">
+            <svg class="icon"><use href="#icon-smartphone"/></svg>
+          </div>
+          <div class="contact-info">
+            <span class="contact-number">@Spisanie_cred_bot</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 10: ОШИБКА
   ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-error">
@@ -401,6 +447,12 @@
         <svg class="icon"><use href="#icon-user"/></svg>
       </span>
       <span class="tab-label">Обо мне</span>
+    </button>
+    <button class="tab-btn" data-tab="contacts">
+      <span class="tab-icon">
+        <svg class="icon"><use href="#icon-phone"/></svg>
+      </span>
+      <span class="tab-label">Контакты</span>
     </button>
   </nav>
 

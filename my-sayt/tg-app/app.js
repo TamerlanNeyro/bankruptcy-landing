@@ -176,7 +176,7 @@ const state = {
   selectedTime:    '',     // утром / днём / вечером
 
   // Экраны с Tab Bar
-  tabScreens: new Set(['home', 'services', 'about']),
+  tabScreens: new Set(['home', 'services', 'about', 'contacts']),
 
   // История навигации
   history: [],
@@ -830,6 +830,21 @@ const screens = {
           const url = a.dataset.link === 'privacy' ? contact.privacyUrl : contact.offerUrl;
           if (inTelegram) tg.openLink(url);
           else window.open(url, '_blank');
+        };
+      });
+    },
+  },
+
+  /* ─── КОНТАКТЫ ──────────────────────────────────────────── */
+  contacts: {
+    init() {
+      Btn.main.hide();
+
+      document.querySelectorAll('.contact-call-btn').forEach(btn => {
+        btn.onclick = () => {
+          const tel = btn.dataset.tel;
+          if (inTelegram) tg.openLink(`tel:${tel}`);
+          else window.location.href = `tel:${tel}`;
         };
       });
     },

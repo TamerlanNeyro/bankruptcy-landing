@@ -932,6 +932,46 @@ body.dark .stat-val { color: var(--gold); }
   color: var(--hint);
 }
 
+/* ─── ЭКРАН КОНТАКТОВ ────────────────────────────────────── */
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card-bg);
+  border-radius: var(--r);
+  padding: 14px var(--gap);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.contact-info {
+  flex: 1;
+  min-width: 0;
+}
+.contact-number {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+.contact-call-btn {
+  background: var(--navy);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--r-sm);
+  padding: 7px 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.contact-call-btn:active { opacity: 0.75; }
+
 /* ─── ЭКРАН ОШИБКИ ───────────────────────────────────────── */
 .error-icon { font-size: 54px; margin-bottom: 16px; }
 
