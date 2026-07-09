@@ -1,47 +1,58 @@
 /* app.css — Все стили Telegram Mini App
-   Банкротство физических лиц
-   Комментарии на русском, стили — нативный Telegram-стиль */
+   Банкротство физических лиц */
 
-/* ─── CSS-ПЕРЕМЕННЫЕ ТГ-ТЕМЫ (с фолбеками для браузера) ────────── */
+/* ─── CSS-ПЕРЕМЕННЫЕ ────────────────────────────────────────── */
 :root {
-  /* Цвета берутся из темы Telegram через JS; здесь — фолбеки для тестирования */
-  --bg:       var(--tg-theme-bg-color,            #ffffff);
-  --bg2:      var(--tg-theme-secondary-bg-color,  #f1f3f4);
-  --text:     var(--tg-theme-text-color,           #000000);
-  --hint:     var(--tg-theme-hint-color,           #707579);
+  /* Цвета из темы Telegram (фолбеки для браузера) */
+  --bg:       var(--tg-theme-bg-color,            #F7F8FA);
+  --bg2:      var(--tg-theme-secondary-bg-color,  #EDEBE4);
+  --text:     var(--tg-theme-text-color,           #0D1117);
+  --hint:     var(--tg-theme-hint-color,           #6B7280);
   --link:     var(--tg-theme-link-color,           #2AABEE);
   --btn-bg:   var(--tg-theme-button-color,         #2AABEE);
   --btn-text: var(--tg-theme-button-text-color,    #ffffff);
 
-  /* Фиксированные цвета — не из темы, для успеха и предупреждений */
+  /* Новая дизайн-система */
+  --navy:       #0C243D;
+  --navy-light: rgba(12, 36, 61, 0.08);
+  --gold:       #EEC373;
+  --gold-text:  #1C1000;
+  --card-cream: #F1EFE8;
+  --card-green: #E8F5EF;
+  --card-bg:    #FFFFFF;
+  --accent:     #EEC373;
+
+  /* Фиксированные цвета */
   --success:  #34C759;
   --warning:  #FF9500;
   --error:    #FF3B30;
   --border:   rgba(0, 0, 0, 0.08);
 
   /* Геометрия */
-  --r:        12px;   /* скругление карточек */
+  --r:        12px;
   --r-sm:     8px;
   --r-pill:   20px;
-  --gap:      16px;   /* базовый отступ */
-  --tab-h:    56px;   /* высота Tab Bar */
-  --btn-h:    50px;   /* высота кнопки */
+  --gap:      16px;
+  --tab-h:    56px;
+  --btn-h:    50px;
 }
 
-/* Тёмная тема — применяется классом body.dark (устанавливает JS) */
 body.dark {
-  --border: rgba(255, 255, 255, 0.08);
+  --border:   rgba(255, 255, 255, 0.08);
+  --card-bg:  #1E2228;
+  --card-cream: #1E2025;
+  --card-green: #1A2B1E;
+  --navy-light: rgba(238, 195, 115, 0.08);
 }
 
-/* ─── УТИЛИТЫ ────────────────────────────────────────────────── */
+/* ─── УТИЛИТЫ ─────────────────────────────────────────────── */
 .hidden { display: none !important; }
 
-/* ─── СБРОС ──────────────────────────────────────────────────── */
+/* ─── СБРОС ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   height: 100%;
-  /* Используем стабильную высоту Telegram вместо 100vh */
   height: var(--tg-viewport-stable-height, 100%);
   overflow: hidden;
 }
@@ -65,7 +76,43 @@ ul, ol  { list-style: none; }
 details summary { cursor: pointer; list-style: none; }
 details summary::-webkit-details-marker { display: none; }
 
-/* ─── КОНТЕЙНЕР ПРИЛОЖЕНИЯ ──────────────────────────────────── */
+/* ─── SVG ИКОНКИ ─────────────────────────────────────────── */
+.icon {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+  flex-shrink: 0;
+}
+.icon-sm { width: 18px !important; height: 18px !important; }
+
+/* ─── КРУЖКИ ДЛЯ ИКОНОК ──────────────────────────────────── */
+.icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.icon-circle .icon { width: 20px; height: 20px; }
+
+.icon-circle.icon-circle-sm            { width: 36px; height: 36px; border-radius: 10px; }
+.icon-circle.icon-circle-sm .icon      { width: 17px; height: 17px; }
+
+.icon-circle-blue  { background: rgba(42, 171, 238, 0.12); color: #2AABEE; }
+.icon-circle-navy  { background: var(--navy-light);         color: var(--navy); }
+.icon-circle-gold  { background: rgba(238, 195, 115, 0.18); color: #9E6A10; }
+.icon-circle-green { background: rgba(52, 199, 89, 0.14);   color: #239B3E; }
+
+body.dark .icon-circle-navy { background: rgba(238,195,115,0.08); color: var(--gold); }
+
+/* ─── КОНТЕЙНЕР ПРИЛОЖЕНИЯ ──────────────────────────────── */
 #app {
   width: 100%;
   height: 100%;
@@ -73,20 +120,18 @@ details summary::-webkit-details-marker { display: none; }
   overflow: hidden;
 }
 
-/* ─── ЭКРАНЫ ─────────────────────────────────────────────────── */
+/* ─── ЭКРАНЫ ─────────────────────────────────────────────── */
 .screen {
   position: absolute;
-  inset: 0;            /* top:0 right:0 bottom:0 left:0 */
+  inset: 0;
   background: var(--bg);
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  /* Скрыт: прозрачен и смещён вправо */
   opacity: 0;
   pointer-events: none;
   transform: translateX(32px);
   transition: opacity 0.22s ease, transform 0.22s ease;
-  /* Запас снизу — всегда, чтобы не перекрывал Tab Bar или MainButton */
   padding-bottom: 80px;
 }
 .screen.active {
@@ -94,20 +139,16 @@ details summary::-webkit-details-marker { display: none; }
   pointer-events: all;
   transform: translateX(0);
 }
-/* Уходящий экран — скользит влево */
 .screen.slide-out {
   opacity: 0;
   transform: translateX(-24px);
   pointer-events: none;
 }
-/* Экраны с Tab Bar — добавляем отступ */
 .screen.has-tabbar {
   padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom, 0px) + 8px);
 }
 
-/* Универсальное тело экрана */
 .screen-body { padding: var(--gap); }
-/* Центрированный вариант (успех, ошибка) */
 .screen-body.centered {
   display: flex;
   flex-direction: column;
@@ -117,7 +158,6 @@ details summary::-webkit-details-marker { display: none; }
   min-height: 70vh;
   justify-content: center;
 }
-/* Липкая шапка экрана */
 .screen-header {
   padding: 18px var(--gap) 12px;
   border-bottom: 1px solid var(--border);
@@ -127,8 +167,8 @@ details summary::-webkit-details-marker { display: none; }
   z-index: 5;
 }
 
-/* ─── ТИПОГРАФИКА ──────────────────────────────────────────── */
-.screen-title { font-size: 22px; font-weight: 700; line-height: 1.22; margin-bottom: 8px; }
+/* ─── ТИПОГРАФИКА ─────────────────────────────────────────── */
+.screen-title { font-size: 26px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
 .screen-sub   { font-size: 15px; color: var(--hint); line-height: 1.5; margin-bottom: 20px; }
 .screen-sub-sm { font-size: 13px; color: var(--hint); margin-top: 4px; }
 .section-label {
@@ -147,56 +187,126 @@ details summary::-webkit-details-marker { display: none; }
   text-align: center;
   animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.splash-logo   { font-size: 64px; margin-bottom: 14px; line-height: 1; }
+.splash-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+.splash-icon {
+  width: 72px;
+  height: 72px;
+  stroke: var(--navy);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+body.dark .splash-icon { stroke: var(--gold); }
 .splash-name   { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
 .splash-sub    { font-size: 14px; color: var(--hint); }
 
 /* ─── WELCOME ─────────────────────────────────────────────── */
-#screen-welcome .screen-body { padding-top: 24px; }
-.welcome-icon  { font-size: 52px; margin-bottom: 22px; }
+#screen-welcome .screen-body { padding-top: 0; }
 
+/* Тёмная визитка адвоката — на всю ширину */
 .welcome-lawyer-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--navy);
+  padding: 28px var(--gap) 22px;
+  margin: 0 calc(-1 * var(--gap)) 28px;
+  border-radius: 0 0 20px 20px;
+}
+.welcome-lawyer-avatar {
+  width: 64px;
+  height: 86px;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: top;
+  flex-shrink: 0;
+  border: 2px solid var(--gold);
+}
+.welcome-lawyer-info   { display: flex; flex-direction: column; gap: 4px; }
+.welcome-lawyer-role   {
+  font-size: 10px;
+  color: rgba(238, 195, 115, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  font-weight: 600;
+}
+.welcome-lawyer-name   { font-size: 16px; font-weight: 700; color: #FFFFFF; line-height: 1.25; }
+
+/* Бейджи доверия */
+.lawyer-trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+.trust-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  background: rgba(238, 195, 115, 0.12);
+  border: 1px solid rgba(238, 195, 115, 0.28);
+  border-radius: var(--r-pill);
+  padding: 3px 9px;
+}
+
+/* Приветствие и заголовок */
+.welcome-user-greeting {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  margin: 4px 0 10px;
+}
+
+.welcome-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0 8px;
+}
+.welcome-feature {
   display: flex;
   align-items: center;
   gap: 12px;
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 14px 16px;
-  margin-bottom: 28px;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.07);
-  border-left: 4px solid var(--accent);
+  border-radius: var(--r);
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.4;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-.welcome-lawyer-avatar {
-  width: 52px; height: 70px;
-  border-radius: 8px;
-  object-fit: cover;
-  object-position: top;
-  flex-shrink: 0;
-}
-.welcome-lawyer-info   { display: flex; flex-direction: column; gap: 3px; }
-.welcome-lawyer-role   { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.5px; }
-.welcome-lawyer-name   { font-size: 16px; font-weight: 700; color: var(--text); }
-.fact-cards    { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+
+/* Факт-карточки */
+.fact-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
 .fact-card {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  background: var(--bg2);
+  background: var(--card-cream);
   border-radius: var(--r);
   padding: 14px var(--gap);
   font-size: 14px;
   line-height: 1.5;
 }
-.fact-icon { font-size: 24px; flex-shrink: 0; }
+.fact-card.fact-housing {
+  background: var(--card-green);
+}
 
 /* Баннер «продолжить квиз» */
 .resume-banner {
   margin-top: 20px;
-  background: rgba(42, 171, 238, 0.1);
+  background: rgba(42, 171, 238, 0.08);
   border-radius: var(--r);
   padding: 14px var(--gap);
   font-size: 14px;
-  border: 1px solid rgba(42, 171, 238, 0.25);
+  border: 1px solid rgba(42, 171, 238, 0.2);
 }
 .resume-btns   { display: flex; gap: 16px; margin-top: 10px; }
 .btn-text      { font-size: 14px; font-weight: 600; color: var(--link); }
@@ -253,7 +363,7 @@ details summary::-webkit-details-marker { display: none; }
   font-size: 14px;
   color: var(--text);
   padding: 10px 14px;
-  background: var(--card-bg);
+  background: var(--card-cream);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -272,7 +382,7 @@ details summary::-webkit-details-marker { display: none; }
   justify-content: center;
   width: 100%;
   min-height: 52px;
-  background: #2AABEE;
+  background: var(--navy);
   color: #fff !important;
   font-size: 16px;
   font-weight: 700;
@@ -296,7 +406,7 @@ details summary::-webkit-details-marker { display: none; }
 
 /* ─── ГЛАВНАЯ (HOME) ─────────────────────────────────────── */
 .home-greeting { font-size: 18px; font-weight: 600; }
-.home-sub      { font-size: 13px; color: var(--hint); margin-top: 3px; margin-bottom: 14px; }
+.home-sub      { font-size: 13px; color: var(--hint); margin-top: 3px; margin-bottom: 18px; }
 
 .lawyer-chip {
   display: flex;
@@ -307,6 +417,7 @@ details summary::-webkit-details-marker { display: none; }
   padding: 12px 14px;
   margin-bottom: 16px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border-left: 3px solid var(--gold);
 }
 .lawyer-chip-avatar {
   width: 44px; height: 59px;
@@ -319,8 +430,9 @@ details summary::-webkit-details-marker { display: none; }
 .lawyer-chip-title  { font-size: 11px; color: var(--hint); text-transform: uppercase; letter-spacing: 0.4px; }
 .lawyer-chip-name   { font-size: 15px; font-weight: 600; color: var(--text); }
 
+/* Hero-блок — тёмный с золотой кнопкой */
 .hero-block {
-  background: var(--btn-bg);
+  background: var(--navy);
   border-radius: var(--r);
   padding: 20px var(--gap);
   margin-bottom: 18px;
@@ -328,25 +440,44 @@ details summary::-webkit-details-marker { display: none; }
 .hero-text {
   font-size: 17px;
   font-weight: 600;
-  color: var(--btn-text);
+  color: rgba(255, 255, 255, 0.85);
   margin-bottom: 14px;
 }
 
-.action-list { display: flex; flex-direction: column; gap: 8px; }
+/* Кнопка «Пройти диагностику» — золотая */
+.btn-hero {
+  background: var(--gold);
+  color: var(--gold-text);
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
+  min-height: var(--btn-h);
+  border-radius: var(--r);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.12s;
+}
+.btn-hero .icon { stroke: var(--gold-text); }
+.btn-hero:active { opacity: 0.85; }
+
+.action-list { display: flex; flex-direction: column; gap: 10px; }
 .action-card {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--bg2);
+  background: var(--card-bg);
   border-radius: var(--r);
   padding: 14px var(--gap);
   width: 100%;
   text-align: left;
   min-height: 64px;
   transition: opacity 0.12s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .action-card:active { opacity: 0.65; }
-.action-icon  { font-size: 28px; flex-shrink: 0; }
 .action-body  { flex: 1; min-width: 0; }
 .action-title { display: block; font-size: 15px; font-weight: 600; }
 .action-sub   { display: block; font-size: 12px; color: var(--hint); margin-top: 2px; }
@@ -370,13 +501,11 @@ details summary::-webkit-details-marker { display: none; }
 }
 .progress-fill {
   height: 100%;
-  background: var(--btn-bg);
+  background: var(--navy);
   border-radius: 2px;
   transition: width 0.35s ease;
 }
 
-/* Тело шага квиза — анимируется при смене шага.
-   Класс .quiz-step-inner создаётся заново через innerHTML → анимация сбрасывается. */
 .quiz-step-inner { animation: quiz-step-in 0.2s ease; }
 @keyframes quiz-step-in {
   from { opacity: 0; transform: translateX(16px); }
@@ -408,8 +537,8 @@ details summary::-webkit-details-marker { display: none; }
 }
 .quiz-option:active { opacity: 0.75; }
 .quiz-option.selected {
-  border-color: var(--btn-bg);
-  background: rgba(42, 171, 238, 0.08);
+  border-color: var(--navy);
+  background: var(--navy-light);
 }
 .quiz-check {
   width: 22px; height: 22px;
@@ -424,12 +553,11 @@ details summary::-webkit-details-marker { display: none; }
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .quiz-option.selected .quiz-check {
-  background: var(--btn-bg);
-  border-color: var(--btn-bg);
+  background: var(--navy);
+  border-color: var(--navy);
   color: #fff;
 }
 
-/* Подсказка под вариантом */
 .quiz-hint {
   margin-top: 10px;
   border-radius: var(--r-sm);
@@ -446,7 +574,19 @@ details summary::-webkit-details-marker { display: none; }
 }
 
 /* ─── РЕЗУЛЬТАТ КВИЗА ────────────────────────────────────── */
-.result-icon  { font-size: 56px; margin-bottom: 16px; }
+.result-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(52, 199, 89, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+  animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
 .result-benefits {
   display: flex;
   flex-direction: column;
@@ -483,24 +623,46 @@ details summary::-webkit-details-marker { display: none; }
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  background: var(--bg2);
+  background: var(--card-bg);
   border-radius: var(--r);
   padding: 16px var(--gap);
   width: 100%;
   text-align: left;
   transition: opacity 0.12s;
   min-height: 96px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 .service-card-btn:active { opacity: 0.65; }
-.svc-icon  { font-size: 34px; flex-shrink: 0; margin-top: 2px; }
+.svc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--navy-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
 .svc-body  { flex: 1; min-width: 0; }
 .svc-name  { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
 .svc-desc  { font-size: 13px; color: var(--hint); line-height: 1.4; margin-bottom: 6px; }
-.svc-tag   { font-size: 13px; font-weight: 600; color: var(--btn-bg); }
+.svc-tag   { font-size: 13px; font-weight: 600; color: var(--navy); }
 .svc-for   { font-size: 12px; color: var(--link); margin-top: 4px; display: block; }
 
 /* ─── КАРТОЧКА УСЛУГИ (полная) ──────────────────────────── */
-.svc-full-icon { font-size: 48px; margin-bottom: 12px; }
+.svc-full-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--navy-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  margin-bottom: 16px;
+}
 .tag-pills {
   display: flex;
   flex-wrap: wrap;
@@ -508,13 +670,14 @@ details summary::-webkit-details-marker { display: none; }
   margin-bottom: 18px;
 }
 .tag-pill {
-  background: rgba(42, 171, 238, 0.12);
-  color: var(--btn-bg);
+  background: var(--navy-light);
+  color: var(--navy);
   border-radius: var(--r-pill);
   padding: 5px 13px;
   font-size: 13px;
   font-weight: 600;
 }
+body.dark .tag-pill { color: var(--gold); }
 .checklist { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
 .checklist li {
   display: flex;
@@ -552,15 +715,14 @@ details summary::-webkit-details-marker { display: none; }
   border: 2px solid transparent;
   border-radius: var(--r);
   padding: 0 var(--gap);
-  font-size: 16px;   /* 16px — не масштабирует экран на iOS */
+  font-size: 16px;
   outline: none;
   transition: border-color 0.2s;
   color: var(--text);
 }
-.form-input:focus       { border-color: var(--btn-bg); }
+.form-input:focus       { border-color: var(--navy); }
 .form-input.has-error   { border-color: var(--error); }
 
-/* Кнопка «поделиться номером» */
 #btn-share {
   width: 100%;
   height: var(--btn-h);
@@ -575,7 +737,6 @@ details summary::-webkit-details-marker { display: none; }
 #btn-share:active { opacity: 0.7; }
 #btn-share:disabled { opacity: 0.55; cursor: default; }
 
-/* Пилюли выбора времени */
 .time-pills { display: flex; gap: 8px; }
 .pill {
   flex: 1;
@@ -588,12 +749,11 @@ details summary::-webkit-details-marker { display: none; }
   transition: border-color 0.15s, background 0.15s, color 0.15s;
 }
 .pill.selected {
-  border-color: var(--btn-bg);
-  background: rgba(42, 171, 238, 0.1);
-  color: var(--btn-bg);
+  border-color: var(--navy);
+  background: var(--navy-light);
+  color: var(--navy);
 }
 
-/* Чекбокс согласия */
 .consent-row {
   display: flex;
   align-items: flex-start;
@@ -607,23 +767,40 @@ details summary::-webkit-details-marker { display: none; }
   flex-shrink: 0;
   margin-top: 2px;
   cursor: pointer;
-  accent-color: var(--btn-bg);
+  accent-color: var(--navy);
 }
 .safety-note { font-size: 12px; color: var(--hint); text-align: center; margin-top: 10px; }
 .form-error  { font-size: 13px; color: var(--error); margin-top: 6px; display: none; }
 .form-error.show { display: block; }
 
 /* ─── ЭКРАН УСПЕХА ───────────────────────────────────────── */
-.success-icon { font-size: 64px; margin-bottom: 18px; animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.next-steps   { display: flex; flex-direction: column; gap: 10px; text-align: left; width: 100%; margin: 22px 0 28px; }
-.next-step    { font-size: 14px; line-height: 1.5; }
+.success-icon {
+  font-size: 64px;
+  margin-bottom: 18px;
+  animation: pop-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.next-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  width: 100%;
+  margin: 22px 0 28px;
+}
+.next-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
 
 /* ─── О НАС ─────────────────────────────────────────────── */
 .lawyer-card {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--bg2);
+  background: var(--navy);
   border-radius: var(--r);
   padding: 16px var(--gap);
   margin-bottom: 20px;
@@ -638,25 +815,27 @@ details summary::-webkit-details-marker { display: none; }
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
+  border: 2px solid var(--gold);
 }
-.lawyer-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.lawyer-name  { display: block; font-size: 17px; font-weight: 600; }
-.lawyer-title { display: block; font-size: 13px; color: var(--hint); margin-top: 3px; }
-.lawyer-spec  { display: block; font-size: 13px; color: var(--link); margin-top: 4px; }
+.lawyer-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.lawyer-name  { display: block; font-size: 17px; font-weight: 600; color: #fff; }
+.lawyer-title { display: block; font-size: 13px; color: rgba(238,195,115,0.7); margin-top: 3px; }
+.lawyer-spec  { display: block; font-size: 13px; color: var(--gold); margin-top: 4px; }
 
 .stats-row { display: flex; gap: 10px; margin-bottom: 6px; }
 .stat-box {
   flex: 1;
-  background: var(--bg2);
+  background: var(--card-bg);
   border-radius: var(--r-sm);
   padding: 14px 10px;
   text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
-.stat-val  { display: block; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.stat-val  { display: block; font-size: 18px; font-weight: 700; margin-bottom: 4px; color: var(--navy); }
 .stat-lbl  { display: block; font-size: 11px; color: var(--hint); line-height: 1.3; }
+body.dark .stat-val { color: var(--gold); }
 .stat-note { font-size: 11px; color: var(--hint); margin-bottom: 20px; }
 
-/* Аккордеон реквизитов */
 .accordion {
   background: var(--bg2);
   border-radius: var(--r);
@@ -718,30 +897,13 @@ details summary::-webkit-details-marker { display: none; }
 .btn:active  { opacity: 0.75; }
 .btn:disabled { opacity: 0.45; cursor: default; pointer-events: none; }
 
-/* Белая кнопка внутри синего hero-блока */
-.btn-hero {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--btn-text);
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  font-size: 16px;
-  font-weight: 600;
-  width: 100%;
-  min-height: var(--btn-h);
-  border-radius: var(--r);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.12s;
-}
-.btn-hero:active { opacity: 0.8; }
-
 .btn-secondary {
   background: var(--bg2);
   color: var(--text);
 }
 .btn-accent {
-  background: var(--btn-bg);
-  color: var(--btn-text);
+  background: var(--gold);
+  color: var(--gold-text);
 }
 
 /* ─── TAB BAR ─────────────────────────────────────────────── */
@@ -769,11 +931,40 @@ details summary::-webkit-details-marker { display: none; }
   transition: color 0.15s;
 }
 .tab-btn.active { color: var(--btn-bg); }
-.tab-icon  { font-size: 22px; line-height: 1; }
+.tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.tab-icon .icon { width: 22px; height: 22px; }
 .tab-label { font-size: 10px; font-weight: 500; }
 
-/* ─── MOCK-КНОПКИ (только для тестирования в браузере) ──── */
-/* Отображаются только когда window.Telegram.WebApp недоступен */
+/* ─── КНОПКА «ПОДЕЛИТЬСЯ» ────────────────────────────────── */
+.btn-share-friend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  background: transparent;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: var(--r);
+  margin-top: 16px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  box-sizing: border-box;
+}
+.btn-share-friend .icon { stroke: var(--navy); }
+.btn-share-friend:active { opacity: 0.65; }
+body.dark .btn-share-friend { border-color: var(--gold); color: var(--gold); }
+body.dark .btn-share-friend .icon { stroke: var(--gold); }
+
+/* ─── MOCK-КНОПКИ (браузер) ──────────────────────────────── */
 #mock-main-btn {
   position: fixed;
   bottom: 16px; left: 16px; right: 16px;
@@ -808,49 +999,3 @@ details summary::-webkit-details-marker { display: none; }
   from { transform: scale(0.4); opacity: 0; }
   to   { transform: scale(1);   opacity: 1; }
 }
-
-/* ─── WELCOME: ПРИВЕТСТВИЕ + ФИЧИ ───────────────────────── */
-.welcome-user-greeting {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
-  text-align: center;
-  margin: 4px 0 16px;
-}
-
-.welcome-features {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 16px 0 4px;
-}
-
-.welcome-feature {
-  background: var(--bg2);
-  border-radius: var(--r);
-  padding: 11px 14px;
-  font-size: 14px;
-  color: var(--text);
-  line-height: 1.4;
-}
-
-/* ─── HOME: КНОПКА «ПОДЕЛИТЬСЯ» ─────────────────────────── */
-.btn-share-friend {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  min-height: 46px;
-  background: transparent;
-  border: 1.5px solid #2AABEE;
-  color: #2AABEE;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: var(--r);
-  margin-top: 16px;
-  cursor: pointer;
-  transition: opacity 0.15s;
-  box-sizing: border-box;
-}
-.btn-share-friend:active { opacity: 0.65; }

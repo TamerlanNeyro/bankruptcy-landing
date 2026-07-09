@@ -5,45 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Помощь при банкротстве</title>
 
-  <!-- Telegram Web App SDK — обязателен для работы в Telegram -->
+  <!-- Telegram Web App SDK -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <link rel="stylesheet" href="app.css">
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════════════════════
+     SVG SPRITE — все иконки приложения (Lucide-style)
+════════════════════════════════════════════════════════════ -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+  </symbol>
+  <symbol id="icon-clipboard" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="15" y2="16"/>
+  </symbol>
+  <symbol id="icon-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><line x1="2" y1="14" x2="22" y2="14"/>
+  </symbol>
+  <symbol id="icon-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+  </symbol>
+  <symbol id="icon-message" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  </symbol>
+  <symbol id="icon-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="3" x2="12" y2="20"/><path d="M3 8c0 2.2 1.8 4 4 4s4-1.8 4-4L7 3z"/><path d="M13 8c0 2.2 1.8 4 4 4s4-1.8 4-4l-4-5z"/><line x1="5" y1="20" x2="19" y2="20"/>
+  </symbol>
+  <symbol id="icon-shield-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+  </symbol>
+  <symbol id="icon-share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+  </symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6.29 6.29l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </symbol>
+  <symbol id="icon-smartphone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect width="14" height="20" x="5" y="2" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+  </symbol>
+  <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+  </symbol>
+</svg>
+
 <div id="app">
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 0: СПЛЭШ
-       Показывается 1.5 сек при запуске, затем → Welcome
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen active" id="screen-splash">
     <div class="splash-inner">
-      <div class="splash-logo">⚖️</div>
+      <div class="splash-logo">
+        <svg class="splash-icon" viewBox="0 0 24 24">
+          <line x1="12" y1="3" x2="12" y2="20"/>
+          <path d="M3 8c0 2.2 1.8 4 4 4s4-1.8 4-4L7 3z"/>
+          <path d="M13 8c0 2.2 1.8 4 4 4s4-1.8 4-4l-4-5z"/>
+          <line x1="5" y1="20" x2="19" y2="20"/>
+        </svg>
+      </div>
       <div class="splash-name">Правовая помощь</div>
       <div class="splash-sub">Банкротство физических лиц</div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       ЭКРАН 1: WELCOME (доверие)
-       Цель — снять главный страх до начала квиза.
-       Главная кнопка (MainButton) → Квиз
-  ════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════
+       ЭКРАН 1: WELCOME
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-welcome">
     <div class="screen-body">
+
+      <!-- Визитка эксперта — тёмная плашка на всю ширину -->
       <div class="welcome-lawyer-card">
         <img class="welcome-lawyer-avatar" src="lawyer.jpg" alt="Гучигов Тимерлан Хасанович">
         <div class="welcome-lawyer-info">
           <span class="welcome-lawyer-role">Адвокат по банкротству физических лиц</span>
           <span class="welcome-lawyer-name">Гучигов Тимерлан Хасанович</span>
+          <div class="lawyer-trust-badges">
+            <span class="trust-badge">84 дела</span>
+            <span class="trust-badge">5 лет стажа</span>
+            <span class="trust-badge">Адвокат РФ</span>
+          </div>
         </div>
       </div>
 
-      <div class="welcome-user-greeting" id="welcome-user-greeting">Добрый день! 👋</div>
-
-      <div class="welcome-icon">🤝</div>
+      <div class="welcome-user-greeting" id="welcome-user-greeting">Добрый день!</div>
       <h1 class="screen-title">Долги —<br>это не приговор</h1>
       <p class="screen-sub">
         Каждый 12-й россиянин имеет просроченный кредит.<br>
@@ -51,21 +102,43 @@
       </p>
 
       <div class="welcome-features">
-        <div class="welcome-feature">📋 Диагностика за 2 минуты — подходит ли вам банкротство</div>
-        <div class="welcome-feature">⚖️ Обзор услуг и прозрачная стоимость</div>
-        <div class="welcome-feature">💬 Запись на бесплатную консультацию</div>
+        <div class="welcome-feature">
+          <div class="icon-circle icon-circle-blue">
+            <svg class="icon"><use href="#icon-clipboard"/></svg>
+          </div>
+          <span>Диагностика за 2 минуты — подходит ли вам банкротство</span>
+        </div>
+        <div class="welcome-feature">
+          <div class="icon-circle icon-circle-navy">
+            <svg class="icon"><use href="#icon-briefcase"/></svg>
+          </div>
+          <span>Обзор услуг и прозрачная стоимость</span>
+        </div>
+        <div class="welcome-feature">
+          <div class="icon-circle icon-circle-gold">
+            <svg class="icon"><use href="#icon-message"/></svg>
+          </div>
+          <span>Запись на бесплатную консультацию</span>
+        </div>
       </div>
+
       <div class="fact-cards">
-        <div class="fact-card">
-          <span class="fact-icon">🏠</span>
+        <!-- Выделена зелёным — успокаивающий факт о защите жилья -->
+        <div class="fact-card fact-housing">
+          <div class="icon-circle icon-circle-green">
+            <svg class="icon"><use href="#icon-shield-check"/></svg>
+          </div>
           <span>Единственное жильё защищено законом — его не заберут при банкротстве</span>
         </div>
         <div class="fact-card">
-          <span class="fact-icon">⚖️</span>
+          <div class="icon-circle icon-circle-navy">
+            <svg class="icon"><use href="#icon-scale"/></svg>
+          </div>
           <span>Банкротство физлиц — закон №127-ФЗ, действует с 2015 года. С тех пор процедуру прошли более миллиона человек.</span>
         </div>
       </div>
-      <!-- Баннер «продолжить квиз» — показывается, если есть незаконченный квиз -->
+
+      <!-- Баннер «продолжить квиз» -->
       <div class="resume-banner hidden" id="resume-banner">
         <div>У вас есть незаконченная диагностика</div>
         <div class="resume-btns">
@@ -76,13 +149,12 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 2: ГЛАВНАЯ (Home)
-       Доступна через Tab Bar после первого прохождения квиза
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen has-tabbar" id="screen-home">
     <div class="screen-body">
-      <div class="home-greeting" id="home-greeting">Добрый день! 👋</div>
+      <div class="home-greeting" id="home-greeting">Добрый день!</div>
       <div class="home-sub">Разберёмся с долгами вместе</div>
 
       <!-- Карточка адвоката -->
@@ -94,16 +166,21 @@
         </div>
       </div>
 
-      <!-- Hero-блок с призывом к диагностике -->
+      <!-- Hero-блок -->
       <div class="hero-block">
         <p class="hero-text">Не знаете, что делать с долгами?</p>
-        <button class="btn-hero" id="btn-quiz-home">Пройти диагностику</button>
+        <button class="btn-hero" id="btn-quiz-home">
+          Пройти диагностику
+          <svg class="icon icon-sm"><use href="#icon-arrow-right"/></svg>
+        </button>
       </div>
 
       <!-- Быстрые действия -->
       <div class="action-list">
         <button class="action-card" data-goto="quiz">
-          <span class="action-icon">📋</span>
+          <div class="icon-circle icon-circle-blue">
+            <svg class="icon"><use href="#icon-clipboard"/></svg>
+          </div>
           <div class="action-body">
             <span class="action-title">Диагностика</span>
             <span class="action-sub">Узнайте за 2 минуты, подходит ли вам банкротство</span>
@@ -111,7 +188,9 @@
           <span class="chevron">›</span>
         </button>
         <button class="action-card" data-goto="services">
-          <span class="action-icon">👨‍⚖️</span>
+          <div class="icon-circle icon-circle-navy">
+            <svg class="icon"><use href="#icon-briefcase"/></svg>
+          </div>
           <div class="action-body">
             <span class="action-title">Услуги</span>
             <span class="action-sub">Что входит в сопровождение и сколько стоит</span>
@@ -119,7 +198,9 @@
           <span class="chevron">›</span>
         </button>
         <button class="action-card" data-goto="form">
-          <span class="action-icon">💬</span>
+          <div class="icon-circle icon-circle-gold">
+            <svg class="icon"><use href="#icon-message"/></svg>
+          </div>
           <div class="action-body">
             <span class="action-title">Записаться</span>
             <span class="action-sub">Бесплатная консультация — без давления</span>
@@ -128,30 +209,29 @@
         </button>
       </div>
 
-      <button class="btn-share-friend" id="btn-share-friend">📤 Поделиться с другом</button>
+      <button class="btn-share-friend" id="btn-share-friend">
+        <svg class="icon icon-sm"><use href="#icon-share"/></svg>
+        Поделиться с другом
+      </button>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       ЭКРАН 3: КВИЗ (5 шагов в одном экране)
-       Контент рендерится динамически через JS
-  ════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════
+       ЭКРАН 3: КВИЗ
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-quiz">
-    <!-- Прогресс-бар — фиксирован вверху -->
     <div class="quiz-topbar">
       <div class="quiz-step-label">Шаг <span id="quiz-step-num">1</span> из 5</div>
       <div class="progress-bar">
         <div class="progress-fill" id="quiz-fill" style="width:20%"></div>
       </div>
     </div>
-    <!-- Тело шага — заменяется при каждом шаге -->
     <div class="screen-body" id="quiz-step-body"></div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 4: РЕЗУЛЬТАТ КВИЗА
-       Персонализированный вывод на основе ответов
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-result">
     <div class="screen-body centered">
       <div class="result-icon" id="result-icon">✅</div>
@@ -163,10 +243,9 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 5: КАТАЛОГ УСЛУГ
-       Список из 3 карточек, тап → карточка услуги
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen has-tabbar" id="screen-services">
     <div class="screen-header">
       <h2 class="screen-title">Наши услуги</h2>
@@ -176,21 +255,18 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       ЭКРАН 6: КАРТОЧКА УСЛУГИ (полная)
-       Рендерится JS при выборе услуги в каталоге
-  ════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════
+       ЭКРАН 6: КАРТОЧКА УСЛУГИ
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-service-card">
     <div class="screen-body" id="service-card-body">
       <!-- Контент рендерится JS -->
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 7: ФОРМА ЗАЯВКИ
-       Имя предзаполняется из Telegram,
-       телефон — через requestContact() или вручную
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-form">
     <div class="screen-header">
       <h2 class="screen-title">Запись на консультацию</h2>
@@ -198,14 +274,12 @@
     </div>
     <div class="screen-body">
 
-      <!-- Поле имени -->
       <div class="form-group">
         <label class="form-label" for="inp-name">Ваше имя</label>
         <input class="form-input" type="text" id="inp-name"
                autocomplete="given-name" placeholder="Введите имя">
       </div>
 
-      <!-- Телефон: сначала кнопка, потом fallback-поле -->
       <div class="form-group">
         <label class="form-label">Телефон</label>
         <button id="btn-share" type="button">
@@ -219,7 +293,6 @@
         </div>
       </div>
 
-      <!-- Выбор времени -->
       <div class="form-group">
         <label class="form-label">Удобное время для звонка</label>
         <div class="time-pills">
@@ -229,7 +302,6 @@
         </div>
       </div>
 
-      <!-- Согласие на обработку персональных данных (обязательно — 152-ФЗ) -->
       <div class="form-group">
         <label class="consent-row">
           <input type="checkbox" id="inp-consent">
@@ -244,20 +316,33 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 8: УСПЕШНАЯ ОТПРАВКА
-       Показывается после отправки заявки.
-       BackButton скрыта — нельзя вернуться и отправить повторно.
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-success">
     <div class="screen-body centered">
       <div class="success-icon">✅</div>
       <h2 class="screen-title">Заявка принята!</h2>
       <p class="screen-sub">Мы свяжемся с вами в течение 2 рабочих часов</p>
       <div class="next-steps">
-        <div class="next-step">📱 Напишем в Telegram для подтверждения</div>
-        <div class="next-step">📞 Помощник адвоката позвонит вам в ближайшее время</div>
-        <div class="next-step">💬 Консультация бесплатная</div>
+        <div class="next-step">
+          <div class="icon-circle icon-circle-sm icon-circle-blue">
+            <svg class="icon"><use href="#icon-smartphone"/></svg>
+          </div>
+          <span>Напишем в Telegram для подтверждения</span>
+        </div>
+        <div class="next-step">
+          <div class="icon-circle icon-circle-sm icon-circle-navy">
+            <svg class="icon"><use href="#icon-phone"/></svg>
+          </div>
+          <span>Помощник адвоката позвонит вам в ближайшее время</span>
+        </div>
+        <div class="next-step">
+          <div class="icon-circle icon-circle-sm icon-circle-green">
+            <svg class="icon"><use href="#icon-check-circle"/></svg>
+          </div>
+          <span>Консультация бесплатная</span>
+        </div>
       </div>
       <button class="btn btn-secondary" id="btn-to-home" style="margin-top:8px;">
         Вернуться на главную
@@ -265,20 +350,18 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 9: О НАС
-       Карточка юриста, статистика, реквизиты, дисклеймер
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen has-tabbar" id="screen-about">
     <div class="screen-body" id="about-body">
-      <!-- Контент рендерится JS из APP_DATA.lawyer и APP_DATA.company -->
+      <!-- Контент рендерится JS -->
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════════════════
        ЭКРАН 10: ОШИБКА
-       Показывается при сетевых проблемах
-  ════════════════════════════════════════════════════════ -->
+  ════════════════════════════════════════════════════════════ -->
   <div class="screen" id="screen-error">
     <div class="screen-body centered">
       <div class="error-icon">😕</div>
@@ -288,34 +371,41 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       TAB BAR (нижняя навигация)
-       Показывается только на экранах: home / services / about
-  ════════════════════════════════════════════════════════ -->
+  <!-- ══════════════════════════════════════════════════════════
+       TAB BAR — SVG-иконки
+  ════════════════════════════════════════════════════════════ -->
   <nav id="tab-bar" class="hidden">
     <button class="tab-btn active" data-tab="home">
-      <span class="tab-icon">🏠</span>
+      <span class="tab-icon">
+        <svg class="icon"><use href="#icon-home"/></svg>
+      </span>
       <span class="tab-label">Главная</span>
     </button>
     <button class="tab-btn" data-tab="quiz">
-      <span class="tab-icon">📋</span>
+      <span class="tab-icon">
+        <svg class="icon"><use href="#icon-clipboard"/></svg>
+      </span>
       <span class="tab-label">Диагностика</span>
     </button>
     <button class="tab-btn" data-tab="services">
-      <span class="tab-icon">👨‍⚖️</span>
+      <span class="tab-icon">
+        <svg class="icon"><use href="#icon-briefcase"/></svg>
+      </span>
       <span class="tab-label">Услуги</span>
     </button>
     <button class="tab-btn" data-tab="about">
-      <span class="tab-icon">👤</span>
+      <span class="tab-icon">
+        <svg class="icon"><use href="#icon-user"/></svg>
+      </span>
       <span class="tab-label">О нас</span>
     </button>
   </nav>
 
 </div><!-- /#app -->
 
-<!-- ══════════════════════════════════════════════════════
-     ОФФЕР-МОДАЛКА (показывается один раз при первом входе)
-════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     ОФФЕР-МОДАЛКА
+════════════════════════════════════════════════════════════ -->
 <div id="offer-overlay" class="offer-overlay hidden">
   <div class="offer-card">
     <div class="offer-emoji">🎁</div>
