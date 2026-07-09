@@ -250,7 +250,7 @@ body.dark .splash-icon { stroke: var(--gold); }
   height: 120px;
   border-radius: 16px;
   object-fit: cover;
-  object-position: center;
+  object-position: center 10%;
   flex-shrink: 0;
   border: 2.5px solid var(--gold);
   box-shadow:
