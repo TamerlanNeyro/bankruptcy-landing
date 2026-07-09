@@ -288,7 +288,8 @@ const screens = {
       const h = new Date().getHours();
       const greet = h < 12 ? 'Доброе утро' : h < 18 ? 'Добрый день' : 'Добрый вечер';
       const greetEl = document.getElementById('welcome-user-greeting');
-      if (greetEl) greetEl.textContent = name ? `${greet}, ${name}! 👋` : `${greet}! 👋`;
+      const sunIcon = `<svg class="icon greeting-icon"><use href="#icon-sun"/></svg>`;
+      if (greetEl) greetEl.innerHTML = name ? `${greet}, ${name}! ${sunIcon}` : `${greet}! ${sunIcon}`;
 
       Btn.main.show('Узнать, подхожу ли я →', () => {
         state.quizStep = 1;
@@ -325,8 +326,9 @@ const screens = {
       const name = state.user?.first_name;
       const h = new Date().getHours();
       const greet = h < 12 ? 'Доброе утро' : h < 18 ? 'Добрый день' : 'Добрый вечер';
-      document.getElementById('home-greeting').textContent =
-        name ? `${greet}, ${name}! 👋` : `${greet}! 👋`;
+      const sunIconHome = `<svg class="icon greeting-icon"><use href="#icon-sun"/></svg>`;
+      document.getElementById('home-greeting').innerHTML =
+        name ? `${greet}, ${name}! ${sunIconHome}` : `${greet}! ${sunIconHome}`;
 
       // Кнопка «Пройти диагностику» в hero-блоке
       document.getElementById('btn-quiz-home').onclick = () => {

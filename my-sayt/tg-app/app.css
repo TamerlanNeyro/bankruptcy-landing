@@ -90,6 +90,15 @@ details summary::-webkit-details-marker { display: none; }
 }
 .icon-sm { width: 18px !important; height: 18px !important; }
 
+.greeting-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-left: 4px;
+  stroke: #F59E0B;
+  display: inline-block;
+}
+
 /* ─── КРУЖКИ ДЛЯ ИКОНОК ──────────────────────────────────── */
 .icon-circle {
   width: 40px;
