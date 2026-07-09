@@ -915,13 +915,10 @@ body.dark .stat-val { color: var(--gold); }
   color: var(--link);
 }
 
-.legal-warn {
-  background: rgba(255, 149, 0, 0.1);
-  border-radius: var(--r-sm);
-  padding: 12px var(--gap);
+.legal-warn-text {
   font-size: 12px;
-  line-height: 1.55;
-  color: var(--text);
+  line-height: 1.6;
+  color: var(--hint);
 }
 
 /* ─── ЭКРАН ОШИБКИ ───────────────────────────────────────── */

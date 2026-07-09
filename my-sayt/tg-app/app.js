@@ -812,10 +812,13 @@ const screens = {
           <a class="about-link" href="#" data-link="offer">Публичная оферта</a>
         </div>
 
-        <!-- Обязательный дисклеймер по ст. 28.1 38-ФЗ -->
-        <div class="legal-warn">
-          ⚠️ ${APP_DATA.legalWarning}
-        </div>
+        <!-- Обязательный дисклеймер по ст. 28.1 38-ФЗ — скрыт в аккордеон -->
+        <details class="accordion">
+          <summary>Правовая информация</summary>
+          <div class="accordion-body legal-warn-text">
+            ${APP_DATA.legalWarning}
+          </div>
+        </details>
       `;
 
       // Ссылки открываем через TG openLink
