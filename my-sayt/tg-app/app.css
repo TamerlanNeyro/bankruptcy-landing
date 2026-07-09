@@ -209,50 +209,96 @@ body.dark .splash-icon { stroke: var(--gold); }
 /* ─── WELCOME ─────────────────────────────────────────────── */
 #screen-welcome .screen-body { padding-top: 0; }
 
-/* Тёмная визитка адвоката — на всю ширину */
+/* ─── ВИЗИТКА ЭКСПЕРТА — полная ширина ──────────────────── */
 .welcome-lawyer-card {
   display: flex;
   align-items: center;
-  gap: 14px;
-  background: var(--navy);
-  padding: 28px var(--gap) 22px;
+  gap: 16px;
+  /* Градиент даёт объём, убирает плоскость */
+  background: linear-gradient(145deg, #091E33 0%, #0C243D 55%, #0E2B48 100%);
+  padding: 28px var(--gap) 24px;
   margin: 0 calc(-1 * var(--gap)) 28px;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 24px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(12, 36, 61, 0.3);
 }
+
+/* Тонкая золотая черта по верхнему краю */
+.welcome-lawyer-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: var(--gap); right: var(--gap);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(238,195,115,0.9), transparent);
+}
+
+/* Рассеянный световой акцент в правом углу */
+.welcome-lawyer-card::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(238,195,115,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Фото — крупный портрет с золотой рамкой и глубокой тенью */
 .welcome-lawyer-avatar {
-  width: 64px;
-  height: 86px;
-  border-radius: 10px;
+  width: 72px;
+  height: 96px;
+  border-radius: 12px;
   object-fit: cover;
   object-position: top;
   flex-shrink: 0;
-  border: 2px solid var(--gold);
+  border: 2.5px solid var(--gold);
+  box-shadow:
+    0 4px 16px rgba(0,0,0,0.45),
+    0 0 0 5px rgba(238,195,115,0.08);
 }
-.welcome-lawyer-info   { display: flex; flex-direction: column; gap: 4px; }
-.welcome-lawyer-role   {
+
+.welcome-lawyer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Специализация — мелкий капс, приглушённый золотой */
+.welcome-lawyer-role {
   font-size: 10px;
-  color: rgba(238, 195, 115, 0.65);
+  color: rgba(238, 195, 115, 0.55);
   text-transform: uppercase;
-  letter-spacing: 0.7px;
+  letter-spacing: 1.4px;
   font-weight: 600;
+  margin-bottom: 5px;
 }
-.welcome-lawyer-name   { font-size: 16px; font-weight: 700; color: #FFFFFF; line-height: 1.25; }
+
+/* Имя — крупный белый, главный акцент */
+.welcome-lawyer-name {
+  font-size: 19px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 11px;
+}
 
 /* Бейджи доверия */
 .lawyer-trust-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  margin-top: 8px;
 }
 .trust-badge {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--gold);
-  background: rgba(238, 195, 115, 0.12);
-  border: 1px solid rgba(238, 195, 115, 0.28);
+  background: rgba(238, 195, 115, 0.1);
+  border: 1px solid rgba(238, 195, 115, 0.22);
   border-radius: var(--r-pill);
   padding: 3px 9px;
+  letter-spacing: 0.2px;
 }
 
 /* Приветствие и заголовок */
