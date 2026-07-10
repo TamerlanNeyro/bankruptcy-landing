@@ -1,7 +1,7 @@
 // api/webhook.js — Telegram Bot webhook
 // Ответ через тело response (reply-via-response) — надёжнее исходящих запросов
 
-const APP_URL = 'https://tg-app-six-wine.vercel.app';
+const APP_URL = process.env.APP_URL || 'https://tg-app-six-wine.vercel.app';
 
 function readBody(req) {
   return new Promise((resolve) => {
