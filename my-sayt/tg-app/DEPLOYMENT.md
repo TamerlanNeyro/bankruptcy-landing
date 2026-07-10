@@ -63,7 +63,7 @@ Username: заканчивается на _bot
 В папке `tg-app/` создайте файл `.env`:
 
 ```
-BOT_TOKEN=8946202593:AAGWZnJQM3nHl6w1-GJOFgJ49iwAN9NaCws
+BOT_TOKEN=<ваш_токен_из_BotFather>
 ```
 
 **Не коммитить в git** — файл уже в `.gitignore`.
