@@ -684,14 +684,16 @@ const screens = {
         : document.getElementById('inp-phone').value.trim();
 
       // Формируем данные заявки
+      // userId/username на бэкенде не используются как есть — сервер сам
+      // достаёт их из initData (подписанного Telegram), initData передаём
+      // только для того, чтобы сервер мог проверить, кто реально отправил.
       const payload = {
         name,
         phone,
         time:        state.selectedTime || 'не указано',
         source:      state.formContext,
         quizAnswers: state.quizAnswers,
-        userId:      state.user?.id || null,
-        username:    state.user?.username || null,
+        initData:    inTelegram ? tg.initData : null,
       };
 
       Btn.main.loading(true);

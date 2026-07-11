@@ -1,7 +1,46 @@
 // api/submit.js — приём заявки с формы, запись в Supabase (таблица applications)
+//
+// Кто отправил заявку, сервер узнаёт не из тела запроса (его легко подделать),
+// а из initData — данных Telegram Mini App, подписанных HMAC на секрете бота.
+// Подпись проверяется здесь же (verifyInitData). Без валидной подписи заявка
+// не принимается.
+
+const crypto = require('crypto');
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
+const BOT_TOKEN = process.env.BOT_TOKEN;
+
+const MAX_INIT_DATA_AGE_SEC = 24 * 60 * 60; // 24 часа
+
+function verifyInitData(initData, botToken) {
+  if (!initData || !botToken) return null;
+
+  const params = new URLSearchParams(initData);
+  const hash = params.get('hash');
+  if (!hash) return null;
+  params.delete('hash');
+
+  const dataCheckString = [...params.entries()]
+    .map(([key, value]) => `${key}=${value}`)
+    .sort()
+    .join('\n');
+
+  const secretKey = crypto.createHmac('sha256', 'WebAppData').update(botToken).digest();
+  const computedHash = crypto.createHmac('sha256', secretKey).update(dataCheckString).digest('hex');
+
+  if (computedHash.length !== hash.length) return null;
+  if (!crypto.timingSafeEqual(Buffer.from(computedHash), Buffer.from(hash))) return null;
+
+  const authDate = parseInt(params.get('auth_date') || '0', 10);
+  if (!authDate || (Date.now() / 1000 - authDate) > MAX_INIT_DATA_AGE_SEC) return null;
+
+  let user = null;
+  try { user = JSON.parse(params.get('user') || 'null'); } catch { user = null; }
+  if (!user || !user.id) return null;
+
+  return { user, authDate };
+}
 
 function readBody(req) {
   return new Promise((resolve) => {
@@ -15,7 +54,13 @@ function readBody(req) {
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'method_not_allowed' });
 
-  const body  = await readBody(req);
+  const body = await readBody(req);
+
+  const verified = verifyInitData(body.initData, BOT_TOKEN);
+  if (!verified) {
+    return res.status(401).json({ ok: false, error: 'unauthorized' });
+  }
+
   const name  = (body.name  || '').trim();
   const phone = (body.phone || '').trim();
 
@@ -29,8 +74,8 @@ module.exports = async function handler(req, res) {
     time:         body.time  || null,
     source:       body.source || null,
     quiz_answers: body.quizAnswers || null,
-    user_id:      body.userId  || null,
-    username:     body.username || null,
+    user_id:      verified.user.id,
+    username:     verified.user.username || null,
   };
 
   try {
