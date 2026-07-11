@@ -171,8 +171,6 @@ const state = {
   quizAnswers:     {},     // { debt: 'medium', housing: 'own', ... }
   selectedSvcId:   null,   // ID выбранной услуги
   formContext:     'home', // откуда открыта форма
-  phoneShared:     false,  // поделился ли номером через requestContact
-  phone:           '',     // телефон (из requestContact или вручную)
   selectedTime:    '',     // утром / днём / вечером
 
   // Экраны с Tab Bar
@@ -594,39 +592,6 @@ const screens = {
         nameInput.value = state.user.first_name;
       }
 
-      // Кнопка «Поделиться номером»
-      const shareBtn = document.getElementById('btn-share');
-      const phoneFallback = document.getElementById('phone-fallback');
-
-      if (state.phoneShared) {
-        // Уже поделился — показываем подтверждение
-        shareBtn.textContent = `✅ ${state.phone}`;
-        shareBtn.disabled = true;
-      } else {
-        shareBtn.textContent = '📱 Поделиться номером из Telegram';
-        shareBtn.disabled = false;
-        shareBtn.onclick = () => {
-          if (inTelegram) {
-            tg.requestContact((ok, data) => {
-              if (ok && data?.contact?.phone_number) {
-                state.phone = data.contact.phone_number;
-                state.phoneShared = true;
-                shareBtn.textContent = `✅ ${state.phone}`;
-                shareBtn.disabled = true;
-                phoneFallback.classList.add('hidden');
-              } else {
-                // Отказал — показываем поле ввода
-                phoneFallback.classList.remove('hidden');
-              }
-              this.validate();
-            });
-          } else {
-            // В браузере — сразу показываем поле ввода
-            phoneFallback.classList.remove('hidden');
-          }
-        };
-      }
-
       // Валидация при вводе телефона
       const phoneInput = document.getElementById('inp-phone');
       phoneInput.addEventListener('input', () => this.validate());
@@ -664,9 +629,7 @@ const screens = {
 
     validate() {
       const name  = document.getElementById('inp-name').value.trim();
-      const phone = state.phoneShared
-        ? state.phone
-        : document.getElementById('inp-phone').value.trim();
+      const phone = document.getElementById('inp-phone').value.trim();
       const consent = document.getElementById('inp-consent').checked;
       const hasPhone = phone.replace(/\D/g, '').length >= 10;
 
@@ -679,9 +642,7 @@ const screens = {
 
     submit() {
       const name  = document.getElementById('inp-name').value.trim();
-      const phone = state.phoneShared
-        ? state.phone
-        : document.getElementById('inp-phone').value.trim();
+      const phone = document.getElementById('inp-phone').value.trim();
 
       // Формируем данные заявки
       // userId/username на бэкенде не используются как есть — сервер сам
