@@ -38,7 +38,7 @@ module.exports = async function handler(req, res) {
           [{ text: '📋 Записаться на консультацию', web_app: { url: APP_URL } }],
         ],
         resize_keyboard:  true,
-        persistent:       true,
+        is_persistent:    true,
       },
     });
   }
