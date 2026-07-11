@@ -10,6 +10,32 @@ const crypto = require('crypto');
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY;
 const BOT_TOKEN = process.env.BOT_TOKEN;
+const LAWYER_CHAT_ID = process.env.LAWYER_CHAT_ID;
+
+const TIME_LABELS = { morning: 'утром', afternoon: 'днём', evening: 'вечером' };
+const SOURCE_LABELS = { home: 'с главной', result: 'после квиза', service: 'с карточки услуги' };
+
+async function notifyLawyer(row) {
+  if (!LAWYER_CHAT_ID || !BOT_TOKEN) return;
+
+  const text =
+    `🆕 <b>Новая заявка</b>\n\n` +
+    `Имя: ${row.name}\n` +
+    `Телефон: <code>${row.phone}</code>\n` +
+    `Связаться: ${TIME_LABELS[row.time] || row.time || 'не указано'}\n` +
+    `Источник: ${SOURCE_LABELS[row.source] || row.source || 'неизвестно'}` +
+    (row.username ? `\nTelegram: @${row.username}` : '');
+
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: LAWYER_CHAT_ID, parse_mode: 'HTML', text }),
+    });
+  } catch (e) {
+    console.error('Lawyer notify failed:', e);
+  }
+}
 
 const MAX_INIT_DATA_AGE_SEC = 24 * 60 * 60; // 24 часа
 
@@ -94,6 +120,10 @@ module.exports = async function handler(req, res) {
       console.error('Supabase insert failed:', r.status, await r.text());
       return res.status(502).json({ ok: false, error: 'db_error' });
     }
+
+    // await — на Vercel serverless-функция завершается сразу после ответа,
+    // fire-and-forget промис может не успеть выполниться до заморозки.
+    await notifyLawyer(row);
 
     return res.status(200).json({ ok: true });
   } catch (e) {
