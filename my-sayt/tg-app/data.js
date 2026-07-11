@@ -9,7 +9,7 @@ const APP_DATA = {
     phone: '+79991234567',              // Номер для звонка (без пробелов)
     phoneDisplay: '+7 (999) 123-45-67', // Отображаемый формат
     telegram: 'Spisanie_cred_bot',       // Username бота без @
-    webhookUrl: '',                     // URL бэкенда для приёма заявок (замените!)
+    webhookUrl: '/api/submit',          // URL бэкенда для приёма заявок
     privacyUrl: 'https://example.com/privacy',  // Политика конфиденциальности
     offerUrl: 'https://example.com/offer',      // Публичная оферта
   },

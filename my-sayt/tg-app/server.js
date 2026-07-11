@@ -17,6 +17,7 @@ if (fs.existsSync(envPath)) {
 }
 
 const webhookHandler = require('./api/webhook.js');
+const submitHandler = require('./api/submit.js');
 
 const PORT = process.env.PORT || 3000;
 
@@ -55,6 +56,17 @@ const server = http.createServer(async (req, res) => {
     wrapRes(res);
     try {
       await webhookHandler(req, res);
+    } catch (e) {
+      console.error(e);
+      res.status(500).json({ ok: false });
+    }
+    return;
+  }
+
+  if (urlPath === '/api/submit') {
+    wrapRes(res);
+    try {
+      await submitHandler(req, res);
     } catch (e) {
       console.error(e);
       res.status(500).json({ ok: false });
